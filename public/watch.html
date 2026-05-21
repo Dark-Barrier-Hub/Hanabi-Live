@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Watch — Hanabi Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+
+<!-- Firebase -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey:"AIzaSyB6FFZb-APx-w1XmGe2GZj3nGMpUGhSNn0",
+    authDomain:"hanabilive-dbh004.firebaseapp.com",
+    projectId:"hanabilive-dbh004",
+    storageBucket:"hanabilive-dbh004.firebasestorage.app",
+    messagingSenderId:"370285575457",
+    appId:"1:370285575457:web:30a958f74c32c2a59c1260"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db   = getFirestore(app);
+  window.__firebaseAuth = auth;
+  window.__firebaseDb   = db;
+  window.__firebaseOps  = {
+    createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+    onAuthStateChanged, GoogleAuthProvider, signInWithPopup,
+    doc, setDoc, getDoc, collection, addDoc, getDocs, query, orderBy
+  };
+  onAuthStateChanged(auth, user => {
+    window.__currentUser = user;
+    document.dispatchEvent(new CustomEvent('authStateChanged', { detail: user }));
+  });
+</script>
+
+<style>
+body { padding-top: 70px; }
+
+/* ─── ANIME DETAIL HERO ─── */
+.anime-detail-hero {
+  position: relative; min-height: 300px;
+  display: flex; align-items: flex-end; overflow: hidden;
+}
+.anime-detail-bg {
+  position: absolute; inset: 0;
+  background-size: cover !important; background-position: center top !important;
+  filter: blur(3px) brightness(0.3); transform: scale(1.06);
+}
+.anime-detail-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(4,5,13,1) 0%, rgba(4,5,13,0.6) 60%, transparent 100%);
+}
+.anime-detail-content {
+  position: relative; z-index: 2;
+  display: flex; gap: 28px; align-items: flex-end;
+  padding: 32px 40px; width: 100%;
+}
+.anime-detail-poster {
+  width: 140px; flex-shrink: 0; border-radius: 8px; overflow: hidden;
+  border: 2px solid var(--accent-red); box-shadow: var(--glow-red);
+}
+.anime-detail-poster img { width: 100%; display: block; }
+.detail-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(18px, 3vw, 32px); font-weight: 900; line-height: 1.2; margin-bottom: 10px;
+}
+.detail-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.detail-tag {
+  padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.detail-tag.genre  { background: rgba(155,89,255,0.2); border: 1px solid rgba(155,89,255,0.4); color: var(--accent-purple); }
+.detail-tag.score  { background: rgba(244,196,48,0.15); border: 1px solid rgba(244,196,48,0.4); color: var(--accent-gold); }
+.detail-tag.year   { background: rgba(0,212,184,0.1);  border: 1px solid rgba(0,212,184,0.3);  color: var(--accent-teal); }
+.detail-tag.season { background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3);  color: var(--accent-red); }
+.detail-desc { font-size: 14px; color: rgba(232,234,246,0.75); line-height: 1.7; max-width: 600px; }
+
+/* ─── WATCH AREA ─── */
+.watch-outer { max-width: 1600px; margin: 0 auto; padding: 24px 40px; }
+.watch-layout {
+  display: grid; grid-template-columns: 1fr 380px; gap: 24px;
+}
+
+/* ─── SEASON TABS ─── */
+.season-tabs {
+  display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.season-tab {
+  padding: 6px 18px; border-radius: 4px; font-size: 12px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  color: var(--text-muted); font-family: 'Rajdhani', sans-serif;
+}
+.season-tab.active {
+  background: rgba(230,57,70,0.2); border-color: var(--accent-red); color: var(--accent-red);
+}
+
+/* ─── EPISODE SEARCH ─── */
+.ep-search {
+  padding: 10px 14px; margin: 0 0 2px;
+  background: rgba(255,255,255,0.04); border: none; border-bottom: 1px solid var(--border);
+  color: var(--text-primary); font-family: 'Rajdhani', sans-serif; font-size: 13px;
+  width: 100%; outline: none;
+  -webkit-user-select: text; user-select: text;
+}
+.ep-search::placeholder { color: var(--text-muted); }
+.ep-search:focus { background: rgba(155,89,255,0.06); }
+
+/* ─── SUB/DUB TOGGLE ─── */
+.audio-toggle-wrap {
+  display: flex; align-items: center; gap: 10px;
+}
+.audio-toggle-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--text-muted);
+  transition: color 0.3s;
+}
+.audio-toggle-label.active { color: var(--text-primary); }
+.audio-toggle {
+  position: relative; width: 52px; height: 26px; cursor: pointer;
+}
+.audio-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+.audio-slider {
+  position: absolute; inset: 0; border-radius: 26px;
+  background: rgba(230,57,70,0.3); border: 1px solid var(--accent-red);
+  transition: background 0.3s;
+}
+.audio-slider::before {
+  content: ''; position: absolute;
+  width: 20px; height: 20px; border-radius: 50%;
+  left: 3px; top: 2px;
+  background: var(--accent-red);
+  transition: transform 0.3s, background 0.3s;
+  box-shadow: 0 0 8px rgba(230,57,70,0.6);
+}
+.audio-toggle input:checked + .audio-slider {
+  background: rgba(155,89,255,0.3); border-color: var(--accent-purple);
+}
+.audio-toggle input:checked + .audio-slider::before {
+  transform: translateX(26px);
+  background: var(--accent-purple);
+  box-shadow: 0 0 8px rgba(155,89,255,0.6);
+}
+
+/* ─── LOADING ─── */
+.player-loading {
+  position: absolute; inset: 0; background: rgba(4,5,13,0.92);
+  display: flex; align-items: center; justify-content: center; z-index: 10;
+  flex-direction: column; gap: 12px;
+}
+.spinner {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 3px solid rgba(230,57,70,0.2);
+  border-top-color: var(--accent-red);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── ERROR STATE ─── */
+.error-screen {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 60vh; gap: 16px; color: var(--text-muted); position: relative; z-index: 2;
+}
+.error-screen .error-icon { font-size: 72px; }
+.error-screen .error-title { font-family: 'Cinzel Decorative', serif; font-size: 24px; color: var(--accent-red); }
+.error-screen .error-sub   { font-size: 14px; }
+
+@media (max-width: 1200px) {
+  .watch-layout { grid-template-columns: 1fr; }
+  .ep-sidebar   { max-height: 420px; }
+}
+@media (max-width: 768px) {
+  .watch-outer  { padding: 12px 16px; }
+  .anime-detail-content { flex-direction: column; align-items: flex-start; padding: 20px; }
+  .anime-detail-poster  { width: 100px; }
+}
+</style>
+</head>
+<body>
+<div class="noise-overlay"></div>
+<div id="authModalMount"></div>
+
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon">✨</span>
+  <span id="toast-msg"></span>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="index.html">⛩ Hanabi Live</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html"    data-page="index.html">Home</a>
+    <a class="nav-link" href="browse.html"   data-page="browse.html">Browse</a>
+    <a class="nav-link" href="schedule.html" data-page="schedule.html">Schedule</a>
+    <a class="nav-link" href="profile.html"  data-page="profile.html">Profile</a>
+  </div>
+  <div class="nav-auth" id="navAuth">
+    <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
+    <button class="btn btn-primary" onclick="openModal('register')">Sign Up</button>
+  </div>
+</nav>
+
+<!-- ANIME DETAIL HERO (filled by JS) -->
+<div class="anime-detail-hero" id="detailHero" style="display:none;">
+  <div class="anime-detail-bg" id="detailBg"></div>
+  <div class="anime-detail-overlay"></div>
+  <div class="anime-detail-content">
+    <div class="anime-detail-poster">
+      <img id="detailPoster" src="" alt="">
+    </div>
+    <div>
+      <div class="detail-title" id="detailTitle"></div>
+      <div class="detail-tags"  id="detailTags"></div>
+      <div class="detail-desc"  id="detailDesc"></div>
+    </div>
+  </div>
+</div>
+
+<!-- WATCH AREA -->
+<div class="watch-outer" id="watchOuter" style="display:none;">
+
+  <!-- Season tabs (only shown when multiple seasons) -->
+  <div class="season-tabs" id="seasonTabs" style="display:none;"></div>
+
+  <div class="watch-layout">
+
+    <!-- LEFT: Player + info + comments -->
+    <div class="video-main">
+      <div class="video-wrapper" id="videoWrapper" style="position:relative;">
+        <div class="player-loading" id="playerLoading">
+          <div class="spinner"></div>
+          <span style="font-size:13px;color:var(--text-muted);letter-spacing:1px;">Loading episode…</span>
+        </div>
+        <iframe id="playerIframe" src="" frameborder="0" allowfullscreen scrolling="no"
+                allow="autoplay" style="opacity:0;transition:opacity 0.4s;"
+                id="playerIframe"></iframe>
+      </div>
+
+      <div class="video-header">
+        <div class="video-title" id="watchTitle">Loading…</div>
+        <div class="video-meta"  id="watchMeta"></div>
+        <div class="video-actions">
+          <div class="audio-toggle-wrap">
+            <span class="audio-toggle-label active" id="subLabel">🎌 SUB</span>
+            <label class="audio-toggle" title="Toggle Sub / Dub">
+              <input type="checkbox" id="audioCbx" onchange="setAudio(this.checked?'dub':'sub')">
+              <span class="audio-slider"></span>
+            </label>
+            <span class="audio-toggle-label" id="dubLabel">🗣 DUB</span>
+          </div>
+          <button class="action-btn action-btn-like"  id="likeBtn"  onclick="toggleLike()">❤ Like</button>
+          <button class="action-btn action-btn-fav"   id="favBtn"   onclick="toggleWatchFav()">⭐ Favorite</button>
+          <button class="action-btn action-btn-share" onclick="shareEp()">🔗 Share</button>
+        </div>
+      </div>
+
+      <!-- Comments -->
+      <div class="comments-section">
+        <div class="comments-title">Comments <span id="commentCount">0</span></div>
+        <div class="comment-input-area">
+          <div class="comment-avatar" id="commentAvatar">?</div>
+          <div class="comment-input-wrap">
+            <textarea class="comment-input" id="commentInput"
+              placeholder="Share your thoughts on this episode…" rows="3"></textarea>
+            <button class="comment-submit" onclick="postComment()">Post Comment</button>
+          </div>
+        </div>
+        <div id="commentsList"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Episode sidebar -->
+    <div class="ep-sidebar">
+      <div class="ep-sidebar-header">
+        <div class="ep-sidebar-title">Episodes</div>
+        <span style="font-size:11px;color:var(--text-muted);" id="epCount">—</span>
+      </div>
+      <input class="ep-search" id="epSearch" type="text" placeholder="🔍 Search episodes…"
+             oninput="filterEpisodes()">
+      <div class="ep-list" id="epList"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ERROR STATE (shown when anime not found) -->
+<div id="errorScreen" class="error-screen" style="display:none;">
+  <div class="error-icon">⛩</div>
+  <div class="error-title">Anime Not Found</div>
+  <div class="error-sub">This title isn't in our library yet.</div>
+  <a href="browse.html" class="btn btn-primary" style="margin-top:8px;">Browse Anime</a>
+</div>
+
+<!-- MORE FROM THIS SERIES -->
+<section class="section" style="padding-top:0;" id="moreSection" style="display:none;">
+  <div class="section-header">
+    <div class="section-tag">📺 More Anime</div>
+    <h2 class="section-title">You Might <span>Also Like</span></h2>
+  </div>
+  <div class="anime-grid" id="moreGrid"></div>
+</section>
+
+<script src="assets/js/core.js"></script>
+<script>
+mountAuthModal();
+
+/* ═══════════════ STATE ═══════════════ */
+let ANIME_LIST   = [];   // from anime.json
+let SHOW_DATA    = null; // the single anime object (from data/episodes/{id}.json)
+let currentAnimeId = null;
+let currentEpNum   = 1;
+let episodeData    = [];
+let liked = false;
+let currentAudio = 'sub';
+
+/* ═══════════════ INIT ═══════════════ */
+async function init() {
+  const params = new URLSearchParams(location.search);
+  currentAnimeId = params.get('id') || '1';
+  currentEpNum   = parseInt(params.get('ep') || '1', 10);
+
+  try {
+    const [showRes, animeRes] = await Promise.all([
+      fetch(`data/episodes/${currentAnimeId}.json`),
+      fetch('data/anime.json')
+    ]);
+    if (!showRes.ok) throw new Error('Episode file not found');
+    SHOW_DATA  = await showRes.json();
+    ANIME_LIST = await animeRes.json();
+  } catch (err) {
+    showErrorScreen('Anime not found or failed to load. Check your connection.');
+    return;
+  }
+
+  document.getElementById('errorScreen').style.display = 'none';
+  document.getElementById('watchOuter').style.display  = 'block';
+
+  renderDetailHero();
+  loadShow(currentEpNum);
+  renderMore();
+  renderComments();
+
+  // Sync URL so it always shows ?id=X&ep=Y from the start
+  const initUrl = new URL(location.href);
+  initUrl.searchParams.set('id', currentAnimeId);
+  initUrl.searchParams.set('ep', currentEpNum);
+  history.replaceState(null, '', initUrl);
+
+  // Attach iframe load handler here so it's always defined
+  document.getElementById('playerIframe').addEventListener('load', onIframeLoad);
+}
+
+/* ═══════════════ ERROR ═══════════════ */
+function showErrorScreen(msg) {
+  document.getElementById('errorScreen').style.display = 'flex';
+  if (msg) document.querySelector('#errorScreen .error-sub').textContent = msg;
+}
+
+/* ═══════════════ DETAIL HERO ═══════════════ */
+function renderDetailHero() {
+  document.getElementById('detailHero').style.display = 'flex';
+  document.getElementById('detailBg').style.background =
+    `url('${SHOW_DATA.coverImg}') center top / cover no-repeat`;
+  document.getElementById('detailPoster').src = SHOW_DATA.coverImg;
+  document.getElementById('detailPoster').alt = SHOW_DATA.animeTitle;
+  document.getElementById('detailTitle').textContent = SHOW_DATA.animeTitle;
+  document.getElementById('detailDesc').textContent  = SHOW_DATA.description;
+
+  const tags = [
+    ...(SHOW_DATA.genres || []).map(g => `<span class="detail-tag genre">${g}</span>`),
+    `<span class="detail-tag score">★ ${SHOW_DATA.score}</span>`,
+    `<span class="detail-tag year">${SHOW_DATA.year}</span>`,
+    SHOW_DATA.season ? `<span class="detail-tag season">Season ${SHOW_DATA.season}</span>` : ''
+  ];
+  document.getElementById('detailTags').innerHTML = tags.join('');
+}
+
+/* ═══════════════ LOAD SHOW ═══════════════ */
+function loadShow(epNum) {
+  episodeData = SHOW_DATA.episodes || [];
+  document.getElementById('epCount').textContent = `${episodeData.length} Episodes`;
+  renderEpisodeList(epNum);
+  playEpisode(epNum);
+}
+
+/* ═══════════════ EPISODE LIST ═══════════════ */
+function renderEpisodeList(activeNum, filter = '') {
+  const q    = filter.toLowerCase();
+  const list = episodeData.filter(ep =>
+    !q || ep.title.toLowerCase().includes(q) || String(ep.num).includes(q)
+  );
+
+  if (!list.length) {
+    document.getElementById('epList').innerHTML =
+      `<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">No episodes match your search.</div>`;
+    return;
+  }
+
+  document.getElementById('epList').innerHTML = list.map(ep => `
+    <div class="ep-item ${ep.num === activeNum ? 'active' : ''}"
+         onclick="selectEp(${ep.num})" data-ep="${ep.num}">
+      <div class="ep-num">${ep.num}</div>
+      <div class="ep-info">
+        <div class="ep-title">${ep.title}</div>
+        <div class="ep-duration">⏱ ${ep.duration}</div>
+      </div>
+    </div>
+  `).join('');
+
+  setTimeout(() => {
+    const active = document.querySelector('.ep-item.active');
+    if (active) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }, 100);
+}
+
+function filterEpisodes() {
+  const q = document.getElementById('epSearch').value;
+  renderEpisodeList(currentEpNum, q);
+}
+
+/* ═══════════════ PLAY EPISODE ═══════════════ */
+
+function onIframeLoad() {
+  document.getElementById('playerLoading').style.display = 'none';
+  document.getElementById('playerIframe').style.opacity  = '1';
+}
+
+/* ═══════════════ ACTIONS ═══════════════ */
+function toggleLike() {
+  if (!window.__currentUser) { openModal('login'); return; }
+  liked = !liked;
+  const btn = document.getElementById('likeBtn');
+  btn.classList.toggle('active', liked);
+  showToast(liked ? 'Episode liked! ❤' : 'Like removed', liked ? '❤' : '💔');
+}
+
+function toggleWatchFav() {
+  if (!window.__currentUser) { openModal('login'); return; }
+  toggleFavById(SHOW_DATA.animeId, null);
+  const nowFav = isFav(SHOW_DATA.animeId);
+  const favBtn = document.getElementById('favBtn');
+  favBtn.classList.toggle('active', nowFav);
+  favBtn.textContent = nowFav ? '❤ Favorited' : '⭐ Favorite';
+}
+
+function shareEp() {
+  const url = location.href;
+  navigator.clipboard?.writeText(url)
+    .then(() => showToast('Link copied to clipboard!', '🔗'))
+    .catch(() => showToast('Share: ' + url, '🔗'));
+}
+
+/* ═══════════════ PLAY EPISODE ═══════════════ */
+function selectEp(num) {
+  currentEpNum = num;
+  const q = document.getElementById('epSearch').value;
+  renderEpisodeList(num, q);
+  playEpisode(num);
+  const url = new URL(location.href);
+  url.searchParams.set('ep', num);
+  url.searchParams.set('id', currentAnimeId);
+  history.replaceState(null, '', url);
+  window.scrollTo({ top: document.getElementById('detailHero').offsetTop - 70, behavior: 'smooth' });
+}
+
+function playEpisode(num) {
+  const ep = episodeData.find(e => e.num === num);
+  if (!ep) return;
+  currentEpNum = num;
+
+  const iframe  = document.getElementById('playerIframe');
+  const loading = document.getElementById('playerLoading');
+
+  loading.style.display = 'flex';
+  iframe.style.opacity  = '0';
+
+  const embedSrc = ep.audio?.[currentAudio] || ep.audio?.sub || ep.embed || SHOW_DATA.defaultEmbed;
+  iframe.src = embedSrc;
+
+  document.title = `${SHOW_DATA.animeTitle} Ep.${ep.num} — Hanabi Live`;
+  document.getElementById('watchTitle').textContent =
+    `${SHOW_DATA.animeTitle}${SHOW_DATA.season ? ` — Season ${SHOW_DATA.season}` : ''}, Episode ${ep.num}: ${ep.title}`;
+
+  document.getElementById('watchMeta').innerHTML = `
+    <div class="video-meta-item">📅 ${SHOW_DATA.year}</div>
+    ${SHOW_DATA.season ? `<div class="video-meta-item">🎬 Season ${SHOW_DATA.season}</div>` : ''}
+    <div class="video-meta-item">📺 Episode ${ep.num} of ${episodeData.length}</div>
+    <div class="video-meta-item">⏱ ${ep.duration}</div>
+    <div class="video-meta-item" style="color:var(--accent-gold);">★ ${SHOW_DATA.score}</div>`;
+
+  // Reset like; sync fav button
+  document.getElementById('likeBtn').classList.remove('active');
+  liked = false;
+  const fav    = isFav(SHOW_DATA.animeId);
+  const favBtn = document.getElementById('favBtn');
+  favBtn.classList.toggle('active', fav);
+  favBtn.textContent = fav ? '❤ Favorited' : '⭐ Favorite';
+}
+
+/* ═══════════════ SUB/DUB TOGGLE ═══════════════ */
+function setAudio(mode) {
+  currentAudio = mode;
+  // Sync checkbox state
+  const cbx = document.getElementById('audioCbx');
+  if (cbx) cbx.checked = (mode === 'dub');
+  // Highlight active label
+  document.getElementById('subLabel').classList.toggle('active', mode === 'sub');
+  document.getElementById('dubLabel').classList.toggle('active', mode === 'dub');
+  playEpisode(currentEpNum);
+}
+
+/* ═══════════════ MORE ANIME ═══════════════ */
+function renderMore() {
+  if (!ANIME_LIST.length) return;
+  const related = ANIME_LIST
+    .filter(a => a.id !== SHOW_DATA.animeId)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 8);
+  document.getElementById('moreGrid').innerHTML = related.map(makeCard).join('');
+  document.getElementById('moreSection').style.display = 'block';
+}
+
+/* ═══════════════ COMMENTS ═══════════════ */
+let comments = JSON.parse(localStorage.getItem('hbComments') || '[]');
+
+function renderComments() {
+  const list = document.getElementById('commentsList');
+  document.getElementById('commentCount').textContent = comments.length;
+  list.innerHTML = comments.slice().reverse().map(c => `
+    <div class="comment-item">
+      <div class="comment-avatar" style="background:linear-gradient(135deg,${c.c1},${c.c2})">${c.avatar}</div>
+      <div>
+        <div class="comment-user">${c.user}<span>${c.time}</span></div>
+        <div class="comment-text">${c.text}</div>
+      </div>
+    </div>`).join('');
+}
+
+function postComment() {
+  const input = document.getElementById('commentInput');
+  const text  = input.value.trim();
+  if (!text) return;
+  if (!window.__currentUser) { openModal('login'); return; }
+  const user = window.__currentUser;
+  const c = {
+    user:   user.displayName || user.email?.split('@')[0] || 'User',
+    avatar: (user.displayName || 'U')[0].toUpperCase(),
+    text, time: 'just now',
+    c1: '#e63946', c2: '#9b59ff'
+  };
+  comments.unshift(c);
+  localStorage.setItem('hbComments', JSON.stringify(comments.slice(0, 50)));
+  input.value = '';
+  renderComments();
+  showToast('Comment posted!', '💬');
+}
+
+/* ═══════════════ BOOT ═══════════════ */
+init();
+</script>
+</body>
+</html>
