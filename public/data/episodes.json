@@ -8,7 +8,7 @@
     "score": 9.2,
     "genres": ["Isekai", "Fantasy"],
     "description": "Satoru Mikami is reincarnated as a slime in a fantasy world, gaining unique abilities and forging his own path as ruler of monsters.",
-    "coverImg": "../public/data/poster/tensura-s1.jpg",
+    "coverImg": "../data/poster/tensura-s1.jpg",
     "defaultEmbed": "https://rumble.com/embed/v77xq84/?pub=4pdc1w",
     "episodes": [
       { "num": 1,  "title": "Birth of a Demon Lord",    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v77xq84/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
