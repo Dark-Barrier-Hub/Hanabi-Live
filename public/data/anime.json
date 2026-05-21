@@ -1,5 +1,5 @@
 [
-  { "id": 1, "title": "That Time I Got Reincarnated as a Slime", "genre": "Isekai", "score": 9.2, "ep": 25, "year": 2018, "badge": "hot", "img": "https://i.imgur.com/YKEFVql.jpg", "desc": "Satoru is reincarnated as a slime in a fantasy world." },
+  { "id": 1, "title": "That Time I Got Reincarnated as a Slime", "genre": "Isekai", "score": 9.2, "ep": 25, "year": 2018, "badge": "hot", "img": "../public/data/poster/tensura-s1.jpg", "desc": "Satoru is reincarnated as a slime in a fantasy world." },
   { "id": 2, "title": "Attack on Titan", "genre": "Action", "score": 9.5, "ep": 87, "year": 2013, "badge": "top", "img": "https://i.imgur.com/nJzOFaW.jpg", "desc": "Humanity fights for survival against giant humanoid Titans." },
   { "id": 3, "title": "Demon Slayer", "genre": "Action", "score": 9.1, "ep": 44, "year": 2019, "badge": "hot", "img": "https://i.imgur.com/yMSl8xU.jpg", "desc": "Tanjiro seeks a cure for his demon-turned sister." },
   { "id": 4, "title": "One Piece", "genre": "Adventure", "score": 9.0, "ep": 1100, "year": 1999, "badge": "", "img": "https://i.imgur.com/BjYkfGV.jpg", "desc": "Luffy sets sail to find the legendary One Piece." },
