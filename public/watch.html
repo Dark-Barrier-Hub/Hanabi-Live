@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Watch — Hanabi Live</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 
@@ -320,7 +321,7 @@ let currentAudio = 'sub';
 /* ═══════════════ INIT ═══════════════ */
 async function init() {
   const params = new URLSearchParams(location.search);
-  currentAnimeId = params.get('id') || '1';
+  currentAnimeId = String(params.get('id') || '1');
   currentEpNum   = parseInt(params.get('ep') || '1', 10);
 
   try {
@@ -331,6 +332,11 @@ async function init() {
     if (!showRes.ok) throw new Error('Episode file not found');
     SHOW_DATA  = await showRes.json();
     ANIME_LIST = await animeRes.json();
+    // Normalize types: animeId → string, season → number (if present)
+    SHOW_DATA.animeId = String(SHOW_DATA.animeId);
+    if (SHOW_DATA.season !== undefined && SHOW_DATA.season !== null) {
+      SHOW_DATA.season = Number(SHOW_DATA.season);
+    }
   } catch (err) {
     showErrorScreen('Anime not found or failed to load. Check your connection.');
     return;

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile — Hanabi Live</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 
@@ -138,10 +139,31 @@ function updateProfileFavs() {
 }
 window.updateProfileFavs = updateProfileFavs;
 
+let animeReady = false;
+
 loadAnime().then(() => {
-  // If user is already loaded, render favs
-  if (window.__currentUser) updateProfileFavs();
+  animeReady = true;
+  if (window.__currentUser) renderProfile(window.__currentUser);
 });
+
+document.addEventListener('authStateChanged', e => {
+  const user = e.detail;
+  if (user) {
+    if (animeReady) renderProfile(user);
+  } else {
+    document.getElementById('profileLoggedIn').style.display  = 'none';
+    document.getElementById('profileLoggedOut').style.display = 'flex';
+  }
+});
+
+function renderProfile(user) {
+  document.getElementById('profileLoggedOut').style.display = 'none';
+  document.getElementById('profileLoggedIn').style.display  = 'block';
+  document.getElementById('profileName').textContent         = user.displayName || user.email?.split('@')[0] || 'Otaku User';
+  document.getElementById('profileEmail').textContent        = user.email || '';
+  document.getElementById('profileAvatarLetter').textContent = (user.displayName || user.email || 'U')[0].toUpperCase();
+  updateProfileFavs();
+}
 </script>
 </body>
 </html>
