@@ -1,0 +1,26 @@
+{
+    "animeId": "1_2_1",
+    "animeTitle": "That Time I Got Reincarnated as a Slime S2P1",
+    "defaultAudio": "sub",
+    "season": "Season 2 Part 1",
+    "year": 2021,
+    "score": 8.34,
+    "genres": ["Isekai", "Fantasy"],
+    "description": "After becoming the leader of Tempest, Rimuru faces growing political tensions and powerful enemies while strengthening alliances and expanding his monster nation.",
+    "coverImg": "../data/poster/tensura-s2-1.webp",
+    "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
+    "episodes": [
+        { "num": 1,  "title": "Rimuru's Busy Life",                 "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 2,  "title": "Trade with the Animal Kingdom",      "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78164m/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 3,  "title": "Paradise, Once More",                "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v781728/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 4,  "title": "The Scheming Kingdom of Falmuth",    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 5,  "title": "Prelude to the Disaster",            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 6,  "title": "The Beauty Makes Her Move",          "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 7,  "title": "Despair",                            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 8,  "title": "Hope",                               "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 9,  "title": "Putting Everything on the Line",     "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 10, "title": "Megiddo",                            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 11, "title": "Birth of a Demon Lord",              "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 12, "title": "The One Unleashed",                  "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } }
+    ]
+}

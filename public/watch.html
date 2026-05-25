@@ -334,9 +334,7 @@ async function init() {
     ANIME_LIST = await animeRes.json();
     // Normalize types: animeId → string, season → number (if present)
     SHOW_DATA.animeId = String(SHOW_DATA.animeId);
-    if (SHOW_DATA.season !== undefined && SHOW_DATA.season !== null) {
-      SHOW_DATA.season = Number(SHOW_DATA.season);
-    }
+    // season stays as-is (string or number) so values like "1 Part 2" are preserved
   } catch (err) {
     showErrorScreen('Anime not found or failed to load. Check your connection.');
     return;
@@ -380,7 +378,7 @@ function renderDetailHero() {
     ...(SHOW_DATA.genres || []).map(g => `<span class="detail-tag genre">${g}</span>`),
     `<span class="detail-tag score">★ ${SHOW_DATA.score}</span>`,
     `<span class="detail-tag year">${SHOW_DATA.year}</span>`,
-    SHOW_DATA.season ? `<span class="detail-tag season">Season ${SHOW_DATA.season}</span>` : ''
+    SHOW_DATA.season ? `<span class="detail-tag season">${SHOW_DATA.season}</span>` : ''
   ];
   document.getElementById('detailTags').innerHTML = tags.join('');
 }
@@ -489,11 +487,11 @@ function playEpisode(num) {
 
   document.title = `${SHOW_DATA.animeTitle} Ep.${ep.num} — Hanabi Live`;
   document.getElementById('watchTitle').textContent =
-    `${SHOW_DATA.animeTitle}${SHOW_DATA.season ? ` — Season ${SHOW_DATA.season}` : ''}, Episode ${ep.num}: ${ep.title}`;
+    `${SHOW_DATA.animeTitle}${SHOW_DATA.season ? ` — ${SHOW_DATA.season}` : ''}, Episode ${ep.num}: ${ep.title}`;
 
   document.getElementById('watchMeta').innerHTML = `
     <div class="video-meta-item">📅 ${SHOW_DATA.year}</div>
-    ${SHOW_DATA.season ? `<div class="video-meta-item">🎬 Season ${SHOW_DATA.season}</div>` : ''}
+    ${SHOW_DATA.season ? `<div class="video-meta-item">🎬 ${SHOW_DATA.season}</div>` : ''}
     <div class="video-meta-item">📺 Episode ${ep.num} of ${episodeData.length}</div>
     <div class="video-meta-item">⏱ ${ep.duration}</div>
     <div class="video-meta-item" style="color:var(--accent-gold);">★ ${SHOW_DATA.score}</div>`;

@@ -1,0 +1,26 @@
+{
+    "animeId": "1_2_2",
+    "animeTitle": "That Time I Got Reincarnated as a Slime S2P2",
+    "defaultAudio": "sub",
+    "season": "Season 2 Part 2",
+    "year": 2021,
+    "score": 8.29,
+    "genres": ["Isekai", "Fantasy"],
+    "description": "Rimuru confronts devastating losses and ruthless enemies, awakening new powers as he fights to protect Tempest and reshape the balance of the world.",
+    "coverImg": "../data/poster/tensura-s2-2.webp",
+    "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
+    "episodes": [
+        { "num": 1,  "title": "The Visitors",                       "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 2,  "title": "A Meeting of Humans and Monsters",   "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78164m/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 3,  "title": "Ramiris's Warning",                  "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v781728/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 4,  "title": "The Congress Dances",                "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 5,  "title": "The Eve of Battle",                  "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 6,  "title": "The Demon Lords",                    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 7,  "title": "The Signal to Begin the Banquet",    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 8,  "title": "On This Land Where It All Happened", "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 9,  "title": "Adalman,the Index Finger",           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 10, "title": "Demon Lords' Banquet:Walpurgis",     "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 11, "title": "Returning from the Brink",           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 12, "title": "Octagram",                           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } }
+    ]
+}

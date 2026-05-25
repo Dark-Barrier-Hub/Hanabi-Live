@@ -238,9 +238,15 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ─── CARD BUILDER (used on multiple pages) ─── */
 function makeCard(anime) {
   const fav = isFav(anime.id);
-  const badges = { hot: '🔥 HOT', new: '🆕 NEW', top: '⭐ TOP' };
+  const badges = { hot: '🔥 HOT', new: '🆕 NEW', top: '⭐ TOP', tba: '🚀 TBA' };
+  // genre is now always an array; normalise legacy strings just in case
+  const genres = Array.isArray(anime.genre) ? anime.genre : [anime.genre];
+  const genreTags = genres
+    .map(g => `<span class="card-genre">${g}</span>`)
+    .join('');
+  const _safeData = JSON.stringify(anime).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
   return `
-    <div class="anime-card" onclick="location.href='watch.html?id=${anime.id}'">
+    <div class="anime-card" data-anime="${_safeData}" onclick="location.href='watch.html?id=${anime.id}'">
       <div class="card-poster">
         <img src="${anime.img}" alt="${anime.title}" loading="lazy"
              onerror="this.style.display='none'">
@@ -248,18 +254,129 @@ function makeCard(anime) {
         <div class="card-score">★ ${anime.score}</div>
         <div class="card-play-overlay"><div class="play-btn-card">▶</div></div>
         <button class="card-fav-btn ${fav ? 'favorited' : ''}"
-                onclick="event.stopPropagation();toggleFavById(${anime.id},this)">${fav ? '❤️' : '🤍'}</button>
+                onclick="event.stopPropagation();toggleFavById('${anime.id}',this)">${fav ? '❤️' : '🤍'}</button>
       </div>
       <div class="card-info">
         <div class="card-title">${anime.title}</div>
         <div class="card-meta">
-          <span class="card-genre">${anime.genre}</span>
+          <div class="card-genres">${genreTags}</div>
           <span>${anime.ep} Ep</span>
         </div>
       </div>
     </div>`;
 }
 window.makeCard = makeCard;
+
+/* ─── CARD HOVER POPUP ─── */
+(function () {
+  let popup = null;
+  let hideTimer = null;
+
+  function createPopup() {
+    popup = document.createElement('div');
+    popup.className = 'card-popup';
+    popup.id = 'cardHoverPopup';
+    document.body.appendChild(popup);
+  }
+
+  function getAnimeById(id) {
+    // Try to find from any grid on the page
+    const cards = document.querySelectorAll('.anime-card');
+    for (const card of cards) {
+      const onclick = card.getAttribute('onclick') || '';
+      if (onclick.includes(`id=${id}`)) return null; // fallback handled below
+    }
+    return null;
+  }
+
+  function showPopup(card, animeData) {
+    clearTimeout(hideTimer);
+    if (!popup) createPopup();
+
+    const genres = Array.isArray(animeData.genre) ? animeData.genre : [animeData.genre];
+    const yearStr = animeData.year === 0 ? 'TBA' : animeData.year;
+
+    popup.innerHTML = `
+      <div class="card-popup-divider"></div>
+      <div class="card-popup-img-wrap">
+        <img class="card-popup-img" src="${animeData.img}" alt="${animeData.title}"
+             onerror="this.parentNode.innerHTML='<div class=\\'card-popup-img-fallback\\'>⛩</div>'">
+      </div>
+      <div class="card-popup-body">
+        <div class="card-popup-title">${animeData.title}</div>
+        <div class="card-popup-meta">
+          <span class="card-popup-year">${yearStr}</span>
+          <span class="card-popup-score">★ ${animeData.score}</span>
+          <span style="font-size:11px;color:var(--text-muted);font-weight:600;">${animeData.ep} Ep</span>
+        </div>
+        <div class="card-popup-genres">
+          ${genres.map(g => `<span class="card-popup-genre">${g}</span>`).join('')}
+        </div>
+        <div class="card-popup-desc">${animeData.desc}</div>
+      </div>`;
+
+    positionPopup(card);
+    popup.classList.add('visible');
+  }
+
+  function positionPopup(card) {
+    const rect = card.getBoundingClientRect();
+    const popupW = 300;
+    const popupH = 380;
+    const gap = 12;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // Prefer right side, fall back to left
+    let left = rect.right + gap;
+    if (left + popupW > vw - 8) left = rect.left - popupW - gap;
+    if (left < 8) left = 8;
+
+    // Vertical: align to card top, clamp to viewport
+    let top = rect.top;
+    if (top + popupH > vh - 8) top = vh - popupH - 8;
+    if (top < 8) top = 8;
+
+    popup.style.left = left + 'px';
+    popup.style.top  = top  + 'px';
+  }
+
+  function hidePopup() {
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      if (popup) popup.classList.remove('visible');
+    }, 120);
+  }
+
+  // Event delegation on document — works for dynamically rendered cards
+  document.addEventListener('mouseover', function (e) {
+    const card = e.target.closest('.anime-card[data-anime]');
+    if (!card) return;
+    try {
+      const raw = card.getAttribute('data-anime').replace(/&quot;/g,'"').replace(/&amp;/g,'&');
+      const data = JSON.parse(raw);
+      showPopup(card, data);
+    } catch (_) {}
+  });
+
+  document.addEventListener('mouseout', function (e) {
+    const card = e.target.closest('.anime-card[data-anime]');
+    if (!card) return;
+    const related = e.relatedTarget;
+    if (related && card.contains(related)) return;
+    hidePopup();
+  });
+
+  // Reposition on scroll
+  document.addEventListener('scroll', function () {
+    if (popup && popup.classList.contains('visible')) {
+      const hovered = document.querySelector('.anime-card[data-anime]:hover');
+      if (hovered) positionPopup(hovered);
+      else hidePopup();
+    }
+  }, true);
+})();
+
 
 /* ─── SHARED AUTH MODAL HTML ─── */
 // Injected by each page via id="authModalMount"
