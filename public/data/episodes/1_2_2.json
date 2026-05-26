@@ -7,6 +7,7 @@
     "score": 8.29,
     "genres": ["Isekai", "Fantasy"],
     "description": "Rimuru confronts devastating losses and ruthless enemies, awakening new powers as he fights to protect Tempest and reshape the balance of the world.",
+    "bgImg": "../data/poster/tensura-bg.webp",
     "coverImg": "../data/poster/tensura-s2-2.webp",
     "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
     "episodes": [

@@ -7,6 +7,7 @@
     "score": 8.34,
     "genres": ["Isekai", "Fantasy"],
     "description": "After becoming the leader of Tempest, Rimuru faces growing political tensions and powerful enemies while strengthening alliances and expanding his monster nation.",
+    "bgImg": "../data/poster/tensura-bg.webp",
     "coverImg": "../data/poster/tensura-s2-1.webp",
     "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
     "episodes": [

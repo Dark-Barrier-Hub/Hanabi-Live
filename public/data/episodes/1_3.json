@@ -7,6 +7,7 @@
     "score": 7.71,
     "genres": ["Isekai", "Fantasy"],
     "description": "Now recognized as a Demon Lord, Rimuru navigates diplomacy, political schemes, and rising threats while continuing to build Tempest into a powerful and peaceful nation.",
+    "bgImg": "../data/poster/tensura-bg.webp",
     "coverImg": "../data/poster/tensura-s3.webp",
     "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
     "episodes": [
