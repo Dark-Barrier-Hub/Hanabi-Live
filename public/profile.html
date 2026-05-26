@@ -12,7 +12,7 @@
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
   const firebaseConfig = {
     apiKey:"AIzaSyB6FFZb-APx-w1XmGe2GZj3nGMpUGhSNn0",
@@ -22,12 +22,12 @@
     messagingSenderId:"370285575457",
     appId:"1:370285575457:web:30a958f74c32c2a59c1260"
   };
-  const app = initializeApp(firebaseConfig);
+  const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db   = getFirestore(app);
   window.__firebaseAuth = auth;
   window.__firebaseDb   = db;
-  window.__firebaseOps  = { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, doc, setDoc, getDoc };
+  window.__firebaseOps  = { signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, doc, setDoc, getDoc };
   onAuthStateChanged(auth, user => {
     window.__currentUser = user;
     document.dispatchEvent(new CustomEvent('authStateChanged', { detail: user }));
@@ -35,15 +35,87 @@
 </script>
 
 <style>
-body { padding-top:70px; }
+body { padding-top: 70px; }
+
+/* ── signed-out screen ── */
 .signed-out-screen {
-  display:flex; align-items:center; justify-content:center;
-  min-height:calc(100vh - 70px); flex-direction:column; gap:20px;
-  position:relative; z-index:2;
+  display: flex; align-items: center; justify-content: center;
+  min-height: calc(100vh - 70px); flex-direction: column; gap: 20px;
+  position: relative; z-index: 2;
 }
-.signed-out-icon { font-size:80px; }
-.signed-out-title { font-family:'Cinzel Decorative',serif; font-size:24px; }
-.signed-out-sub { color:var(--text-muted); font-size:15px; }
+.signed-out-icon  { font-size: 80px; }
+.signed-out-title { font-family: 'Cinzel Decorative', serif; font-size: 24px; }
+.signed-out-sub   { color: var(--text-muted); font-size: 15px; }
+
+/* ── profile hero ── */
+.profile-hero {
+  display: flex; align-items: center; gap: 36px;
+  padding: 48px 60px 32px;
+  position: relative; z-index: 2;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── avatar wrapper ── */
+.profile-avatar-wrap { position: relative; flex-shrink: 0; }
+.profile-avatar {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-red), var(--accent-purple));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; font-weight: 700; color: #fff;
+  border: 3px solid var(--accent-red);
+  box-shadow: var(--glow-red);
+  overflow: hidden;
+}
+.profile-avatar img {
+  width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+}
+
+/* ── upload button overlay on avatar ── */
+.avatar-upload-btn {
+  position: absolute; bottom: 0; right: 0;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--accent-purple); border: 2px solid var(--bg-deep);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--glow-purple);
+}
+.avatar-upload-btn:hover { transform: scale(1.15); }
+#avatarFileInput { display: none; }
+
+.profile-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 700; margin-bottom: 4px;
+}
+.profile-stats {
+  display: flex; gap: 32px; margin-top: 16px;
+}
+.profile-stat { text-align: center; }
+.profile-stat-num {
+  font-size: 28px; font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  display: block;
+}
+.profile-stat-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-muted); margin-top: 2px;
+}
+
+/* ── uploading spinner ── */
+.avatar-uploading {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  animation: pulse 1s infinite;
+}
+
+@media(max-width: 768px) {
+  .profile-hero { flex-direction: column; padding: 24px; text-align: center; }
+  .profile-stats { justify-content: center; }
+}
 </style>
 </head>
 <body>
@@ -66,7 +138,6 @@ body { padding-top:70px; }
   </div>
   <div class="nav-auth" id="navAuth">
     <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
-    <button class="btn btn-primary" onclick="openModal('register')">Sign Up</button>
   </div>
 </nav>
 
@@ -75,16 +146,23 @@ body { padding-top:70px; }
   <div class="signed-out-icon">🔒</div>
   <div class="signed-out-title">Sign In Required</div>
   <div class="signed-out-sub">Please sign in to view your profile and activity</div>
-  <button class="btn btn-primary" onclick="openModal('login')">Sign In Now</button>
+  <button class="btn btn-primary" onclick="openModal('login')">Sign In with Google</button>
 </div>
 
 <!-- LOGGED IN -->
 <div id="profileLoggedIn" style="display:none;">
+
   <div class="profile-hero">
+    <!-- Avatar with upload -->
     <div class="profile-avatar-wrap">
-      <div class="profile-avatar" id="profileAvatarLetter">U</div>
-      <div class="profile-level">LVL 12</div>
+      <div class="profile-avatar" id="profileAvatar">
+        <span id="profileAvatarLetter">U</span>
+      </div>
+      <div class="avatar-upload-btn" title="Change photo" onclick="document.getElementById('avatarFileInput').click()">📷</div>
+      <input type="file" id="avatarFileInput" accept="image/*" onchange="handleAvatarUpload(event)">
     </div>
+
+    <!-- Info -->
     <div>
       <div class="profile-name" id="profileName">Otaku User</div>
       <div style="color:var(--text-muted);font-size:14px;" id="profileEmail">user@example.com</div>
@@ -93,18 +171,11 @@ body { padding-top:70px; }
           <span class="profile-stat-num" id="statFavs">0</span>
           <div class="profile-stat-label">Favorites</div>
         </div>
-        <div class="profile-stat">
-          <span class="profile-stat-num">47</span>
-          <div class="profile-stat-label">Comments</div>
-        </div>
-        <div class="profile-stat">
-          <span class="profile-stat-num">12</span>
-          <div class="profile-stat-label">Level</div>
-        </div>
       </div>
     </div>
   </div>
 
+  <!-- Favorites Grid -->
   <div class="section">
     <div class="section-header">
       <div class="section-tag">⭐ Your List</div>
@@ -116,7 +187,8 @@ body { padding-top:70px; }
       </div>
     </div>
   </div>
-</div>
+
+</div><!-- /profileLoggedIn -->
 
 <script src="assets/js/core.js"></script>
 <script>
@@ -129,8 +201,9 @@ async function loadAnime() {
   ANIME_LIST = await res.json();
 }
 
+/* ── render favorites grid ── */
 function updateProfileFavs() {
-  const favIds   = getFavs();
+  const favIds    = getFavs();
   const favAnimes = ANIME_LIST.filter(a => favIds.includes(a.id));
   document.getElementById('statFavs').textContent = favAnimes.length;
   document.getElementById('favoritesGrid').innerHTML = favAnimes.length
@@ -139,6 +212,94 @@ function updateProfileFavs() {
 }
 window.updateProfileFavs = updateProfileFavs;
 
+/* ── render full profile from cache ── */
+function renderProfile(user) {
+  document.getElementById('profileLoggedOut').style.display = 'none';
+  document.getElementById('profileLoggedIn').style.display  = 'block';
+
+  // Pull from localStorage cache (populated by core.js authStateChanged)
+  const profile = getProfileCache() || {};
+
+  const name  = profile.name  || user.displayName || user.email?.split('@')[0] || 'Otaku User';
+  const email = profile.email || user.email || '';
+  const photo = profile.photoBase64 || null;
+
+  document.getElementById('profileName').textContent  = name;
+  document.getElementById('profileEmail').textContent = email;
+
+  const avatarEl     = document.getElementById('profileAvatar');
+  const letterEl     = document.getElementById('profileAvatarLetter');
+
+  if (photo) {
+    letterEl.style.display = 'none';
+    // Remove old img if any
+    const oldImg = avatarEl.querySelector('img');
+    if (oldImg) oldImg.remove();
+    const img = document.createElement('img');
+    img.src = photo;
+    avatarEl.appendChild(img);
+  } else {
+    letterEl.style.display = '';
+    letterEl.textContent   = name[0].toUpperCase();
+    const oldImg = avatarEl.querySelector('img');
+    if (oldImg) oldImg.remove();
+  }
+
+  updateProfileFavs();
+}
+
+/* ── avatar photo upload ── */
+async function handleAvatarUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) {
+    showToast('Image too large (max 2MB)', '⚠️'); return;
+  }
+
+  // Show uploading spinner on avatar
+  const avatarEl = document.getElementById('profileAvatar');
+  const spinner  = document.createElement('div');
+  spinner.className = 'avatar-uploading';
+  spinner.textContent = '⏳';
+  avatarEl.appendChild(spinner);
+
+  try {
+    const base64 = await fileToBase64(file);
+    await saveProfilePhoto(base64);
+
+    // Update avatar display
+    spinner.remove();
+    document.getElementById('profileAvatarLetter').style.display = 'none';
+    const oldImg = avatarEl.querySelector('img');
+    if (oldImg) oldImg.remove();
+    const img = document.createElement('img');
+    img.src = base64;
+    avatarEl.appendChild(img);
+
+    showToast('Profile photo updated! 📸', '📸');
+
+    // Also refresh nav avatar
+    document.dispatchEvent(new CustomEvent('authStateChanged', { detail: window.__currentUser }));
+  } catch (e) {
+    spinner.remove();
+    showToast('Upload failed. Try again.', '❌');
+    console.error(e);
+  }
+
+  // Reset input so same file can be re-selected
+  event.target.value = '';
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload  = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ── boot sequence ── */
 let animeReady = false;
 
 loadAnime().then(() => {
@@ -149,21 +310,16 @@ loadAnime().then(() => {
 document.addEventListener('authStateChanged', e => {
   const user = e.detail;
   if (user) {
-    if (animeReady) renderProfile(user);
+    // core.js authStateChanged handler runs first and populates cache;
+    // use a tiny delay so cache is written before we read it
+    setTimeout(() => {
+      if (animeReady) renderProfile(user);
+    }, 80);
   } else {
     document.getElementById('profileLoggedIn').style.display  = 'none';
     document.getElementById('profileLoggedOut').style.display = 'flex';
   }
 });
-
-function renderProfile(user) {
-  document.getElementById('profileLoggedOut').style.display = 'none';
-  document.getElementById('profileLoggedIn').style.display  = 'block';
-  document.getElementById('profileName').textContent         = user.displayName || user.email?.split('@')[0] || 'Otaku User';
-  document.getElementById('profileEmail').textContent        = user.email || '';
-  document.getElementById('profileAvatarLetter').textContent = (user.displayName || user.email || 'U')[0].toUpperCase();
-  updateProfileFavs();
-}
 </script>
 </body>
 </html>
