@@ -88,6 +88,54 @@
 .btn-hero-primary:hover { transform:translateY(-3px); box-shadow:0 0 40px rgba(230,57,70,0.8); }
 .btn-hero-secondary { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:var(--text-primary); backdrop-filter:blur(10px); }
 .btn-hero-secondary:hover { background:rgba(255,255,255,0.1); transform:translateY(-3px); }
+
+/* App name in hero — visually integrated but crawlable */
+.hero-appname {
+  display:block;
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(14px,1.6vw,22px);
+  font-weight:700;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--accent-teal);
+  margin-bottom:6px;
+  opacity:0.85;
+  filter:drop-shadow(0 0 8px rgba(0,212,184,0.4));
+}
+
+/* App purpose / about strip */
+.about-strip {
+  padding:48px 60px;
+  position:relative; z-index:2;
+  background:rgba(9,11,26,0.6);
+  border-bottom:1px solid var(--border);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:32px;
+}
+.about-strip-item {
+  display:flex; align-items:flex-start; gap:16px;
+}
+.about-strip-icon {
+  width:48px; height:48px; border-radius:10px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px;
+}
+.about-strip-icon.red    { background:rgba(230,57,70,0.12);  border:1px solid rgba(230,57,70,0.3); }
+.about-strip-icon.teal   { background:rgba(0,212,184,0.1);   border:1px solid rgba(0,212,184,0.25); }
+.about-strip-icon.purple { background:rgba(155,89,255,0.12); border:1px solid rgba(155,89,255,0.3); }
+.about-strip-icon.gold   { background:rgba(244,196,48,0.1);  border:1px solid rgba(244,196,48,0.25); }
+.about-strip-label {
+  font-size:13px; font-weight:700; color:var(--text-primary);
+  letter-spacing:0.5px; margin-bottom:4px;
+}
+.about-strip-desc {
+  font-size:13px; color:var(--text-muted); line-height:1.6;
+}
+@media(max-width:768px){
+  .about-strip { padding:32px 20px; grid-template-columns:1fr 1fr; gap:20px; }
+}
+
 .hero-stats {
   position:absolute; right:60px; bottom:80px;
   display:flex; flex-direction:column; gap:20px;
@@ -136,12 +184,15 @@
   <div class="hero-content">
     <div class="hero-badge"><span>●</span> NOW STREAMING</div>
     <h1 class="hero-title">
+      <span class="hero-appname">Hanabi Live</span>
       <span class="line1">Your Ultimate</span>
       <span class="line2">Anime Universe</span>
     </h1>
-    <p class="hero-subtitle">Dive into thousands of anime series, movies, and OVAs. Stream in HD, track your progress, and join the community.</p>
+    <p class="hero-subtitle">
+      <strong>Hanabi Live</strong> is a free anime streaming platform where you can watch thousands of anime series, movies, and OVAs in HD — no subscription required. Browse our library, track your favorites, follow the airing schedule, and join a community of anime fans from around the world.
+    </p>
     <div class="hero-cta">
-      <button class="btn-hero btn-hero-primary" onclick="location.href='browse.html'">▶ Start Watching</button>
+      <button class="btn-hero btn-hero-primary" onclick="location.href='browse.html'">▶ Start Watching Free</button>
       <button class="btn-hero btn-hero-secondary" onclick="location.href='browse.html'">🔥 Browse Anime</button>
     </div>
   </div>
@@ -155,6 +206,38 @@
 <!-- MARQUEE STRIP -->
 <div class="featured-strip">
   <div class="strip-inner" id="stripInner"></div>
+</div>
+
+<!-- ABOUT HANABI LIVE (required for OAuth verification) -->
+<div class="about-strip" id="aboutStrip">
+  <div class="about-strip-item">
+    <div class="about-strip-icon red">⛩</div>
+    <div>
+      <div class="about-strip-label">What is Hanabi Live?</div>
+      <div class="about-strip-desc">Hanabi Live is a free anime streaming platform. Watch thousands of anime series and movies — no subscription, no paywall.</div>
+    </div>
+  </div>
+  <div class="about-strip-item">
+    <div class="about-strip-icon teal">🔍</div>
+    <div>
+      <div class="about-strip-label">Browse & Discover</div>
+      <div class="about-strip-desc">Search and filter our full library by genre, score, or release year. Find your next favourite show in seconds.</div>
+    </div>
+  </div>
+  <div class="about-strip-item">
+    <div class="about-strip-icon purple">⭐</div>
+    <div>
+      <div class="about-strip-label">Sign In with Google</div>
+      <div class="about-strip-desc">Create a free account via Google to save favourites, track your watch list, and post comments on episodes.</div>
+    </div>
+  </div>
+  <div class="about-strip-item">
+    <div class="about-strip-icon gold">📅</div>
+    <div>
+      <div class="about-strip-label">Airing Schedule</div>
+      <div class="about-strip-desc">Stay up to date with weekly airing schedules so you never miss a new episode of the shows you love.</div>
+    </div>
+  </div>
 </div>
 
 <!-- TRENDING -->
