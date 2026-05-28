@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Hanabi Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+
+<style>
+body { padding-top: 70px; }
+
+/* ── LEGAL PAGE HERO ── */
+.legal-hero {
+  position: relative;
+  padding: 64px 60px 48px;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  z-index: 2;
+}
+.legal-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 0% 50%, rgba(155,89,255,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 100% 0%, rgba(0,212,184,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.legal-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-purple); margin-bottom: 16px;
+}
+.legal-hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent-purple); }
+.legal-hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(28px, 5vw, 56px); font-weight: 900; line-height: 1.1;
+  margin-bottom: 16px;
+}
+.legal-hero-title span {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.legal-hero-meta {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  font-size: 13px; color: var(--text-muted); font-weight: 500;
+}
+.legal-hero-meta span { display: flex; align-items: center; gap: 6px; }
+.legal-hero-meta span::before { content: '●'; color: var(--accent-purple); font-size: 8px; }
+
+/* ── LAYOUT ── */
+.legal-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 60px;
+  position: relative; z-index: 2;
+}
+
+/* ── STICKY TOC ── */
+.legal-toc {
+  position: sticky;
+  top: 90px;
+  height: fit-content;
+  padding-right: 40px;
+  border-right: 1px solid var(--border);
+}
+.toc-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px;
+}
+.toc-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.toc-item a {
+  display: block; padding: 7px 12px;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  text-decoration: none; border-radius: 4px;
+  border-left: 2px solid transparent;
+  transition: all 0.25s; letter-spacing: 0.3px;
+}
+.toc-item a:hover { color: var(--text-primary); background: rgba(255,255,255,0.04); }
+.toc-item a.active { color: var(--accent-purple); border-left-color: var(--accent-purple); background: rgba(155,89,255,0.06); }
+
+/* ── CONTENT ── */
+.legal-content { padding-left: 56px; }
+
+.legal-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 90px;
+  animation: fadeInUp 0.5s ease both;
+}
+
+.section-number {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-teal);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.section-number::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--accent-teal); opacity: 0.5; }
+
+.legal-section h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(18px, 2.5vw, 24px); font-weight: 700;
+  color: var(--text-primary); margin-bottom: 20px; line-height: 1.3;
+}
+.legal-section p {
+  font-size: 15px; color: rgba(232,234,246,0.75); line-height: 1.8;
+  margin-bottom: 14px; font-weight: 400;
+}
+.legal-section ul {
+  list-style: none; margin: 0 0 16px; padding: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.legal-section ul li {
+  font-size: 14px; color: rgba(232,234,246,0.7); line-height: 1.7;
+  padding-left: 20px; position: relative;
+}
+.legal-section ul li::before {
+  content: '✦'; position: absolute; left: 0;
+  color: var(--accent-purple); font-size: 9px; top: 5px;
+}
+
+/* ── HIGHLIGHT BOXES ── */
+.legal-highlight {
+  background: rgba(155,89,255,0.06);
+  border: 1px solid rgba(155,89,255,0.25);
+  border-left: 3px solid var(--accent-purple);
+  border-radius: 4px; padding: 18px 20px; margin: 20px 0;
+  font-size: 14px; color: rgba(232,234,246,0.8); line-height: 1.7;
+}
+.legal-highlight strong { color: var(--accent-purple); }
+
+.legal-info-box {
+  background: rgba(0,212,184,0.05);
+  border: 1px solid rgba(0,212,184,0.2);
+  border-left: 3px solid var(--accent-teal);
+  border-radius: 4px; padding: 18px 20px; margin: 20px 0;
+  font-size: 14px; color: rgba(232,234,246,0.8); line-height: 1.7;
+}
+.legal-info-box strong { color: var(--accent-teal); }
+
+/* ── DATA TABLE ── */
+.data-table {
+  width: 100%; border-collapse: collapse; margin: 20px 0;
+  font-size: 13px;
+}
+.data-table th {
+  text-align: left; padding: 10px 14px;
+  background: rgba(155,89,255,0.1); color: var(--accent-purple);
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+  border-bottom: 1px solid rgba(155,89,255,0.3);
+}
+.data-table td {
+  padding: 12px 14px; color: rgba(232,234,246,0.7); line-height: 1.6;
+  border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ── SECTION DIVIDER ── */
+.section-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-teal), transparent);
+  opacity: 0.2; margin: 56px 0;
+}
+
+/* ── RIGHTS CARDS ── */
+.rights-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px; margin: 20px 0;
+}
+.right-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 18px 16px; transition: border-color 0.3s;
+}
+.right-card:hover { border-color: var(--accent-purple); }
+.right-card-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.right-card-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: 0.5px; }
+.right-card-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+/* ── CONTACT BOX ── */
+.contact-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 32px;
+  text-align: center; margin-top: 48px;
+}
+.contact-box-icon { font-size: 40px; margin-bottom: 16px; display: block; }
+.contact-box h3 {
+  font-family: 'Cinzel Decorative', serif; font-size: 20px;
+  margin-bottom: 10px;
+}
+.contact-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+.contact-box a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 24px; border-radius: 4px;
+  background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
+  color: #fff; text-decoration: none; font-weight: 700;
+  font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
+  transition: all 0.3s; box-shadow: var(--glow-purple);
+}
+.contact-box a:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(155,89,255,0.7); }
+
+/* ── BACK TO TOP ── */
+.back-top-btn {
+  position: fixed; bottom: 30px; right: 30px; z-index: 500;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
+  border: none; color: #fff; font-size: 18px; cursor: pointer;
+  box-shadow: var(--glow-teal); transition: all 0.3s;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(20px); pointer-events: none;
+}
+.back-top-btn.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.back-top-btn:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(0,212,184,0.8); }
+
+@media (max-width: 1024px) {
+  .legal-layout { grid-template-columns: 1fr; padding: 32px 24px; }
+  .legal-toc { display: none; }
+  .legal-content { padding-left: 0; }
+  .legal-hero { padding: 40px 24px 32px; }
+  .rights-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .rights-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="noise-overlay"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="index.html">⛩ Hanabi Live</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="browse.html">Browse</a>
+    <a class="nav-link" href="schedule.html">Schedule</a>
+    <a class="nav-link" href="profile.html">Profile</a>
+  </div>
+  <div class="nav-auth">
+    <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="legal-hero">
+  <div class="legal-hero-eyebrow">🔒 Legal</div>
+  <h1 class="legal-hero-title">Privacy <span>Policy</span></h1>
+  <div class="legal-hero-meta">
+    <span>Effective: January 1, 2026</span>
+    <span>Last updated: May 2026</span>
+    <span>Version 2.1</span>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="legal-layout">
+
+  <!-- TOC -->
+  <nav class="legal-toc" id="tocNav">
+    <div class="toc-title">Contents</div>
+    <ul class="toc-list">
+      <li class="toc-item"><a href="#overview" class="active">1. Overview</a></li>
+      <li class="toc-item"><a href="#collection">2. Data We Collect</a></li>
+      <li class="toc-item"><a href="#use">3. How We Use Data</a></li>
+      <li class="toc-item"><a href="#sharing">4. Data Sharing</a></li>
+      <li class="toc-item"><a href="#firebase">5. Firebase & Google</a></li>
+      <li class="toc-item"><a href="#cookies">6. Cookies & Storage</a></li>
+      <li class="toc-item"><a href="#security">7. Data Security</a></li>
+      <li class="toc-item"><a href="#retention">8. Data Retention</a></li>
+      <li class="toc-item"><a href="#rights">9. Your Rights</a></li>
+      <li class="toc-item"><a href="#children">10. Children</a></li>
+      <li class="toc-item"><a href="#changes-pp">11. Changes</a></li>
+      <li class="toc-item"><a href="#contact-pp">12. Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="legal-content">
+
+    <div class="legal-highlight">
+      <strong>Your privacy matters.</strong> This policy explains what data Hanabi Live collects, why we collect it, and how you can control it. We believe in transparency and minimal data collection.
+    </div>
+
+    <div class="legal-section" id="overview">
+      <div class="section-number">01</div>
+      <h2>Overview</h2>
+      <p>Hanabi Live ("we," "our," or "us") is committed to protecting your personal information. This Privacy Policy describes how we collect, use, disclose, and safeguard information when you use our anime streaming platform.</p>
+      <p>We use Firebase (a Google service) to handle authentication and data storage. By using Hanabi Live, you also agree to Google's data practices as described in their Privacy Policy, which we reference in Section 5.</p>
+      <p>This policy applies to all users of Hanabi Live regardless of how you access the service — via web browser, mobile browser, or any future application.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="collection">
+      <div class="section-number">02</div>
+      <h2>Data We Collect</h2>
+      <p>We collect information in three ways: information you provide directly, information collected automatically, and information from third parties (Google).</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Data Collected</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--accent-teal)">Account</strong></td>
+            <td>Name, email address, profile photo, Google UID</td>
+            <td>Google Sign-In</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-teal)">Profile</strong></td>
+            <td>Custom profile photo (base64), display name preferences</td>
+            <td>You (optional)</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-teal)">Activity</strong></td>
+            <td>Favorited anime IDs, watch history, comments posted</td>
+            <td>Your usage</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-teal)">Technical</strong></td>
+            <td>Browser type, device type, IP address, pages visited, timestamps</td>
+            <td>Automatic</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-teal)">Local Storage</strong></td>
+            <td>Cached profile data, favorites list, comment history</td>
+            <td>Your browser</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="legal-info-box">
+        <strong>We do not collect:</strong> Payment information (we have no paid tiers), government IDs, precise location data, or sensitive personal information beyond what is listed above.
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="use">
+      <div class="section-number">03</div>
+      <h2>How We Use Your Data</h2>
+      <p>We use the information we collect for the following purposes:</p>
+      <ul>
+        <li><strong>Service provision:</strong> To create and manage your account, display your profile, and enable platform features like favorites and comments.</li>
+        <li><strong>Personalization:</strong> To remember your preferences, watch history, and favorites across sessions.</li>
+        <li><strong>Security:</strong> To detect and prevent fraud, unauthorized access, and abuse of our platform.</li>
+        <li><strong>Communication:</strong> To send you important service updates, policy changes, or security alerts (no marketing emails unless opted in).</li>
+        <li><strong>Analytics:</strong> To understand how our platform is used so we can improve it. Analytics data is aggregated and anonymized where possible.</li>
+        <li><strong>Legal compliance:</strong> To comply with applicable laws, regulations, and lawful government requests.</li>
+      </ul>
+      <p>We do not use your data for targeted advertising, sell it to data brokers, or share it for marketing purposes.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="sharing">
+      <div class="section-number">04</div>
+      <h2>Data Sharing & Disclosure</h2>
+      <p>We do not sell your personal data. We may share your information only in the following limited circumstances:</p>
+      <ul>
+        <li><strong>Service providers:</strong> With trusted partners who help us operate the platform (e.g., Firebase/Google for database and authentication). These partners are bound by data processing agreements.</li>
+        <li><strong>Legal requirements:</strong> When required by law, subpoena, or government request, or to protect the rights and safety of Hanabi Live, our users, or the public.</li>
+        <li><strong>Business transfers:</strong> In the event of a merger, acquisition, or sale of assets, your data may be transferred. We will notify you before this happens.</li>
+        <li><strong>With your consent:</strong> In any other circumstances, only with your explicit permission.</li>
+      </ul>
+      <div class="legal-highlight">
+        <strong>Public content:</strong> Comments you post on Hanabi Live are visible to all users of the platform. Please do not include personal information in public comments.
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="firebase">
+      <div class="section-number">05</div>
+      <h2>Firebase & Google Services</h2>
+      <p>Hanabi Live uses Firebase, a Google platform, for authentication, database storage, and related services. When you sign in with Google, Firebase processes your authentication data according to Google's Privacy Policy.</p>
+      <p>The Firebase services we use include:</p>
+      <ul>
+        <li><strong>Firebase Authentication:</strong> Manages your sign-in via Google OAuth. Google processes your email, name, and profile photo to verify your identity.</li>
+        <li><strong>Cloud Firestore:</strong> Stores your profile data, favorites, and account metadata in Google's secure cloud infrastructure.</li>
+      </ul>
+      <p>Google's data centers are located primarily in the United States. By using Hanabi Live, you acknowledge that your data may be transferred to and processed in the US or other countries where Google operates data centers.</p>
+      <p>You can review Google's Privacy Policy at <strong>policies.google.com/privacy</strong> and Firebase's terms at <strong>firebase.google.com/terms</strong>.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="cookies">
+      <div class="section-number">06</div>
+      <h2>Cookies & Local Storage</h2>
+      <p>Hanabi Live uses browser localStorage (not traditional cookies) to enhance your experience. Here's what we store locally in your browser:</p>
+      <ul>
+        <li><strong>hbProfile:</strong> Cached profile data (name, photo, favorites) for fast loading without repeated network requests.</li>
+        <li><strong>hbFavs:</strong> Your favorited anime IDs for offline-first access.</li>
+        <li><strong>hbComments:</strong> Locally cached comments for the current session.</li>
+        <li><strong>hbUid:</strong> Your Firebase user ID to maintain session state.</li>
+      </ul>
+      <p>Firebase may also set authentication cookies in your browser. These are essential for keeping you logged in and cannot be disabled without logging out.</p>
+      <p>You can clear all locally stored data at any time by clearing your browser's local storage or by signing out and using your browser's privacy tools.</p>
+      <div class="legal-info-box">
+        <strong>No tracking pixels or third-party ad cookies.</strong> We do not use advertising networks, retargeting pixels, or cross-site tracking technologies.
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="security">
+      <div class="section-number">07</div>
+      <h2>Data Security</h2>
+      <p>We take the security of your personal information seriously. We implement a range of technical and organizational measures to protect your data:</p>
+      <ul>
+        <li>All data transmission between your browser and our services is encrypted via HTTPS/TLS.</li>
+        <li>Firebase Firestore is secured with Firebase Security Rules that restrict access to authorized users only.</li>
+        <li>Profile photos are stored as base64 strings within Firestore, encrypted at rest by Google.</li>
+        <li>We do not store passwords — authentication is handled entirely by Google OAuth.</li>
+        <li>Access to our Firebase project is restricted to authorized administrators with multi-factor authentication.</li>
+      </ul>
+      <p>Despite these measures, no security system is impenetrable. If you discover a security vulnerability, please report it responsibly to <strong>security@hanabilive.com</strong>.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="retention">
+      <div class="section-number">08</div>
+      <h2>Data Retention</h2>
+      <p>We retain your personal data for as long as your account is active or as needed to provide you with our services.</p>
+      <ul>
+        <li><strong>Active accounts:</strong> Data is retained indefinitely while your account remains active.</li>
+        <li><strong>Deleted accounts:</strong> Upon account deletion, we will delete or anonymize your personal data within 30 days, except where retention is required by law.</li>
+        <li><strong>Inactive accounts:</strong> Accounts with no activity for 24+ months may be flagged for deletion. We will notify you via email before any deletion.</li>
+        <li><strong>Comments:</strong> Public comments may remain visible after account deletion in anonymized form.</li>
+        <li><strong>Logs:</strong> System and access logs may be retained for up to 90 days for security purposes.</li>
+      </ul>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="rights">
+      <div class="section-number">09</div>
+      <h2>Your Privacy Rights</h2>
+      <p>Depending on your location, you may have certain rights regarding your personal data. We honor these rights for all users, regardless of jurisdiction:</p>
+
+      <div class="rights-grid">
+        <div class="right-card">
+          <span class="right-card-icon">👁</span>
+          <div class="right-card-title">Right to Access</div>
+          <div class="right-card-desc">Request a copy of the personal data we hold about you.</div>
+        </div>
+        <div class="right-card">
+          <span class="right-card-icon">✏️</span>
+          <div class="right-card-title">Right to Rectify</div>
+          <div class="right-card-desc">Correct inaccurate or incomplete information in your profile.</div>
+        </div>
+        <div class="right-card">
+          <span class="right-card-icon">🗑</span>
+          <div class="right-card-title">Right to Delete</div>
+          <div class="right-card-desc">Request erasure of your personal data ("right to be forgotten").</div>
+        </div>
+        <div class="right-card">
+          <span class="right-card-icon">⏸</span>
+          <div class="right-card-title">Right to Restrict</div>
+          <div class="right-card-desc">Request that we limit how we process your data in certain circumstances.</div>
+        </div>
+        <div class="right-card">
+          <span class="right-card-icon">📦</span>
+          <div class="right-card-title">Data Portability</div>
+          <div class="right-card-desc">Receive your data in a machine-readable format to transfer elsewhere.</div>
+        </div>
+        <div class="right-card">
+          <span class="right-card-icon">🚫</span>
+          <div class="right-card-title">Right to Object</div>
+          <div class="right-card-desc">Object to our processing of your data for specific purposes.</div>
+        </div>
+      </div>
+
+      <p>To exercise any of these rights, contact us at <strong>privacy@hanabilive.com</strong>. We will respond within 30 days. We may need to verify your identity before processing certain requests.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="children">
+      <div class="section-number">10</div>
+      <h2>Children's Privacy</h2>
+      <p>Hanabi Live is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13.</p>
+      <p>Users between 13 and 17 years of age may use Hanabi Live with parental consent. Parents or guardians who believe their child has provided us with personal information without consent should contact us immediately at <strong>privacy@hanabilive.com</strong>, and we will take steps to delete that information.</p>
+      <div class="legal-highlight">
+        <strong>COPPA compliance:</strong> We comply with the Children's Online Privacy Protection Act (COPPA). If we discover that a child under 13 has created an account, we will promptly delete the account and associated data.
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="changes-pp">
+      <div class="section-number">11</div>
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy periodically to reflect changes in our practices, legal requirements, or platform features. When we make significant changes, we will:</p>
+      <ul>
+        <li>Update the "Last Updated" date at the top of this page.</li>
+        <li>Notify registered users via email for material changes.</li>
+        <li>Display a notice on the platform for a reasonable period following the update.</li>
+      </ul>
+      <p>We encourage you to review this Privacy Policy periodically. Your continued use of Hanabi Live after any changes constitutes your acceptance of the revised policy.</p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="legal-section" id="contact-pp">
+      <div class="section-number">12</div>
+      <h2>Contact & Data Requests</h2>
+      <p>If you have questions about this Privacy Policy, want to exercise your data rights, or have a privacy concern, please contact our privacy team:</p>
+    </div>
+
+    <div class="contact-box">
+      <span class="contact-box-icon">🔒</span>
+      <h3>Hanabi Live Privacy Team</h3>
+      <p>We take privacy seriously and respond to all requests.<br>Typical response time: within 5 business days.</p>
+      <a href="mailto:privacy@hanabilive.com">✉ privacy@hanabilive.com</a>
+    </div>
+
+    <div style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <span style="font-size: 12px; color: var(--text-muted);">© 2026 Hanabi Live. All rights reserved.</span>
+      <a href="tos.html" style="font-size: 13px; color: var(--accent-red); font-weight: 600; text-decoration: none;">Terms of Service →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Back to Top -->
+<button class="back-top-btn" id="backTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// TOC active state on scroll
+const sections = document.querySelectorAll('.legal-section[id]');
+const tocLinks  = document.querySelectorAll('.toc-item a');
+const backBtn   = document.getElementById('backTopBtn');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 110) current = s.id; });
+  tocLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+  backBtn.classList.toggle('visible', window.scrollY > 400);
+});
+</script>
+</body>
+</html>

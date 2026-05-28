@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+    http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- ═══════════════════════════════════════════
+       HANABI LIVE — sitemap.xml
+       Generated: 2026-05-28
+       Base URL:  https://hanabilive.com
+  ════════════════════════════════════════════ -->
+
+  <!-- ── CORE PAGES ── -->
+
+  <url>
+    <loc>https://hanabilive.com/index.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://hanabilive.com/browse.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://hanabilive.com/schedule.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://hanabilive.com/profile.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ── COMPANY / LEGAL PAGES ── -->
+
+  <url>
+    <loc>https://hanabilive.com/about.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://hanabilive.com/pp.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://hanabilive.com/tos.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://hanabilive.com/sitemap.html</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- ── WATCH PAGES (one per anime title) ── -->
+
+  <!-- That Time I Got Reincarnated as a Slime — Season 1 -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=1_1&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- That Time I Got Reincarnated as a Slime — Season 2 Part 1 -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=1_2_1&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- That Time I Got Reincarnated as a Slime — Season 2 Part 2 -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=1_2_2&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- That Time I Got Reincarnated as a Slime — Season 3 -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=1_3&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- That Time I Got Reincarnated as a Slime — Season 4 Part 1 -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=1_4_1&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- That Time I Got Reincarnated as a Slime — Season 4 Part 2 (TBA) -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=1_4_2&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Attack on Titan -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=2&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Demon Slayer -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=3&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- One Piece -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=4&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Jujutsu Kaisen -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=5&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Fullmetal Alchemist: Brotherhood -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=6&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Vinland Saga -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=7&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Hunter x Hunter -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=8&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Naruto Shippuden -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=9&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- My Hero Academia -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=10&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Sword Art Online -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=11&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Re:Zero -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=12&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Bleach: Thousand-Year Blood War -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=13&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Tokyo Ghoul -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=14&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Dragon Ball Super -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=15&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Spy x Family -->
+  <url>
+    <loc>https://hanabilive.com/watch.html?id=16&amp;ep=1</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+</urlset>

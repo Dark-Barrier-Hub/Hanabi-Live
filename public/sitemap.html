@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sitemap — Hanabi Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+
+<style>
+body { padding-top: 70px; }
+
+.sitemap-hero {
+  position: relative;
+  padding: 64px 60px 48px;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  z-index: 2;
+}
+.sitemap-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 0% 50%, rgba(0,212,184,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 100% 0%, rgba(230,57,70,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.sitemap-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-teal); margin-bottom: 16px;
+}
+.sitemap-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent-teal); }
+.sitemap-hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(28px, 5vw, 56px); font-weight: 900; line-height: 1.1;
+  margin-bottom: 16px;
+}
+.sitemap-hero-title span {
+  background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.sitemap-sub { font-size: 15px; color: var(--text-muted); font-weight: 400; }
+
+/* ── SITEMAP GRID ── */
+.sitemap-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 60px;
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.sitemap-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.sitemap-card:hover {
+  border-color: var(--accent-teal);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0,212,184,0.15);
+}
+
+.sitemap-card-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,0.02);
+}
+.sitemap-card-icon {
+  width: 42px; height: 42px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.sitemap-card-icon.teal   { background: rgba(0,212,184,0.15); border: 1px solid rgba(0,212,184,0.3); }
+.sitemap-card-icon.red    { background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); }
+.sitemap-card-icon.purple { background: rgba(155,89,255,0.15); border: 1px solid rgba(155,89,255,0.3); }
+.sitemap-card-icon.gold   { background: rgba(244,196,48,0.15); border: 1px solid rgba(244,196,48,0.3); }
+
+.sitemap-card-header-info { flex: 1; }
+.sitemap-card-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px;
+}
+.sitemap-card-desc { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+.sitemap-card-links { padding: 12px 0; }
+.sitemap-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 24px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+  transition: all 0.2s;
+  border-left: 2px solid transparent;
+  position: relative;
+}
+.sitemap-link:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
+  border-left-color: var(--accent-teal);
+  padding-left: 28px;
+}
+.sitemap-link-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+  transition: background 0.2s;
+}
+.sitemap-link:hover .sitemap-link-icon {
+  background: rgba(0,212,184,0.12);
+}
+.sitemap-link-label { flex: 1; }
+.sitemap-link-arrow {
+  font-size: 10px; color: var(--text-muted); opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.sitemap-link:hover .sitemap-link-arrow { opacity: 1; transform: translateX(3px); }
+
+.sitemap-link-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px;
+}
+.sitemap-link-badge.new   { background: rgba(0,212,184,0.2); color: var(--accent-teal); border: 1px solid rgba(0,212,184,0.3); }
+.sitemap-link-badge.hot   { background: rgba(244,196,48,0.2); color: var(--accent-gold); border: 1px solid rgba(244,196,48,0.3); }
+.sitemap-link-badge.legal { background: rgba(155,89,255,0.2); color: var(--accent-purple); border: 1px solid rgba(155,89,255,0.3); }
+
+/* ── BOTTOM INFO ── */
+.sitemap-footer-note {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 60px 60px;
+  position: relative; z-index: 2;
+}
+.sitemap-xml-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-teal);
+  border-radius: 8px; padding: 20px 24px;
+  display: flex; align-items: center; gap: 16px;
+}
+.sitemap-xml-icon { font-size: 28px; flex-shrink: 0; }
+.sitemap-xml-text { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+.sitemap-xml-text strong { color: var(--accent-teal); }
+
+@media (max-width: 768px) {
+  .sitemap-hero { padding: 40px 24px 32px; }
+  .sitemap-body { padding: 32px 20px; grid-template-columns: 1fr; }
+  .sitemap-footer-note { padding: 0 20px 40px; }
+}
+</style>
+</head>
+<body>
+<div class="noise-overlay"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="index.html">⛩ Hanabi Live</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="browse.html">Browse</a>
+    <a class="nav-link" href="schedule.html">Schedule</a>
+    <a class="nav-link" href="profile.html">Profile</a>
+  </div>
+  <div class="nav-auth">
+    <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="sitemap-hero">
+  <div class="sitemap-eyebrow">🗺 Navigation</div>
+  <h1 class="sitemap-hero-title">Site <span>Map</span></h1>
+  <p class="sitemap-sub">A complete overview of all pages and sections on Hanabi Live.</p>
+</div>
+
+<!-- SITEMAP GRID -->
+<div class="sitemap-body">
+
+  <!-- Main Pages -->
+  <div class="sitemap-card">
+    <div class="sitemap-card-header">
+      <div class="sitemap-card-icon teal">⛩</div>
+      <div class="sitemap-card-header-info">
+        <div class="sitemap-card-title">Main Pages</div>
+        <div class="sitemap-card-desc">Core navigation</div>
+      </div>
+    </div>
+    <div class="sitemap-card-links">
+      <a class="sitemap-link" href="index.html">
+        <div class="sitemap-link-icon">🏠</div>
+        <span class="sitemap-link-label">Home</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="browse.html">
+        <div class="sitemap-link-icon">🔍</div>
+        <span class="sitemap-link-label">Browse Anime</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="schedule.html">
+        <div class="sitemap-link-icon">📅</div>
+        <span class="sitemap-link-label">Airing Schedule</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="watch.html">
+        <div class="sitemap-link-icon">▶</div>
+        <span class="sitemap-link-label">Watch</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- User Account -->
+  <div class="sitemap-card">
+    <div class="sitemap-card-header">
+      <div class="sitemap-card-icon red">👤</div>
+      <div class="sitemap-card-header-info">
+        <div class="sitemap-card-title">User Account</div>
+        <div class="sitemap-card-desc">Profile & personalization</div>
+      </div>
+    </div>
+    <div class="sitemap-card-links">
+      <a class="sitemap-link" href="profile.html">
+        <div class="sitemap-link-icon">👤</div>
+        <span class="sitemap-link-label">My Profile</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="profile.html">
+        <div class="sitemap-link-icon">⭐</div>
+        <span class="sitemap-link-label">My Favorites</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="profile.html">
+        <div class="sitemap-link-icon">📷</div>
+        <span class="sitemap-link-label">Edit Avatar</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Discover -->
+  <div class="sitemap-card">
+    <div class="sitemap-card-header">
+      <div class="sitemap-card-icon gold">🔥</div>
+      <div class="sitemap-card-header-info">
+        <div class="sitemap-card-title">Discover</div>
+        <div class="sitemap-card-desc">Find your next obsession</div>
+      </div>
+    </div>
+    <div class="sitemap-card-links">
+      <a class="sitemap-link" href="browse.html?genre=Action">
+        <div class="sitemap-link-icon">⚔</div>
+        <span class="sitemap-link-label">Action Anime</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="browse.html?genre=Isekai">
+        <div class="sitemap-link-icon">🌀</div>
+        <span class="sitemap-link-label">Isekai Anime</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="browse.html?sort=score">
+        <div class="sitemap-link-icon">📊</div>
+        <span class="sitemap-link-label">Top Rated</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="browse.html?badge=new">
+        <div class="sitemap-link-icon">🆕</div>
+        <span class="sitemap-link-label">New Releases</span>
+        <span class="sitemap-link-badge new">NEW</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="browse.html?badge=hot">
+        <div class="sitemap-link-icon">🔥</div>
+        <span class="sitemap-link-label">Trending</span>
+        <span class="sitemap-link-badge hot">HOT</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Company / Legal -->
+  <div class="sitemap-card">
+    <div class="sitemap-card-header">
+      <div class="sitemap-card-icon purple">📋</div>
+      <div class="sitemap-card-header-info">
+        <div class="sitemap-card-title">Company & Legal</div>
+        <div class="sitemap-card-desc">Policies & information</div>
+      </div>
+    </div>
+    <div class="sitemap-card-links">
+      <a class="sitemap-link" href="about.html">
+        <div class="sitemap-link-icon">ℹ</div>
+        <span class="sitemap-link-label">About Us</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="pp.html">
+        <div class="sitemap-link-icon">🔒</div>
+        <span class="sitemap-link-label">Privacy Policy</span>
+        <span class="sitemap-link-badge legal">LEGAL</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="tos.html">
+        <div class="sitemap-link-icon">📜</div>
+        <span class="sitemap-link-label">Terms of Service</span>
+        <span class="sitemap-link-badge legal">LEGAL</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+      <a class="sitemap-link" href="sitemap.html">
+        <div class="sitemap-link-icon">🗺</div>
+        <span class="sitemap-link-label">Sitemap</span>
+        <span class="sitemap-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer note -->
+<div class="sitemap-footer-note">
+  <div class="sitemap-xml-box">
+    <div class="sitemap-xml-icon">🤖</div>
+    <div class="sitemap-xml-text">
+      <strong>For search engines:</strong> An XML sitemap is available at <strong>sitemap.xml</strong> for web crawlers and SEO indexing. This page is the human-readable version of our site structure.
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

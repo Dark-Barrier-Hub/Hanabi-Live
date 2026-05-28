@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Hanabi Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+
+<style>
+body { padding-top: 70px; }
+
+/* ── HERO ── */
+.about-hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 80px 60px;
+}
+.about-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(135deg, rgba(4,5,13,0.97) 0%, rgba(9,11,26,0.75) 50%, rgba(4,5,13,0.95) 100%),
+    url('data/poster/bg.webp') center/cover no-repeat;
+}
+.about-hero-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.about-hero-content { position: relative; z-index: 5; max-width: 680px; }
+.about-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-gold); margin-bottom: 20px;
+}
+.about-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--accent-gold); }
+.about-hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(32px, 6vw, 72px); font-weight: 900; line-height: 1.1;
+  margin-bottom: 24px;
+}
+.about-hero-title .line1 { display: block; color: var(--text-primary); }
+.about-hero-title .line2 {
+  display: block;
+  background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-gold) 50%, var(--accent-teal) 100%);
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(244,196,48,0.4));
+}
+.about-hero-desc {
+  font-size: 17px; color: var(--text-muted); line-height: 1.8;
+  font-weight: 300; max-width: 560px;
+}
+
+/* ── FLOATING STATS ── */
+.about-stats-bar {
+  position: relative; z-index: 10;
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.about-stat-cell {
+  flex: 1; min-width: 160px;
+  padding: 32px 20px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background 0.3s;
+}
+.about-stat-cell:last-child { border-right: none; }
+.about-stat-cell:hover { background: rgba(255,255,255,0.02); }
+.about-stat-num {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 36px; font-weight: 900; display: block; line-height: 1;
+  margin-bottom: 8px;
+}
+.about-stat-num.red    { background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+                          background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.about-stat-num.teal   { background: linear-gradient(135deg, var(--accent-teal), var(--accent-purple));
+                          background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.about-stat-num.gold   { background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+                          background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.about-stat-num.purple { background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
+                          background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.about-stat-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-muted);
+}
+
+/* ── SECTIONS ── */
+.about-body {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 60px;
+  position: relative; z-index: 2;
+}
+
+/* ── MISSION SECTION ── */
+.mission-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.mission-text-side {}
+.mission-section-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-teal);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+}
+.mission-section-tag::before { content: ''; width: 24px; height: 2px; background: var(--accent-teal); }
+.mission-heading {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 3vw, 36px); font-weight: 700; line-height: 1.2;
+  margin-bottom: 20px;
+}
+.mission-heading span {
+  background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.mission-p {
+  font-size: 15px; color: rgba(232,234,246,0.72); line-height: 1.85;
+  margin-bottom: 16px; font-weight: 400;
+}
+.mission-visual-side {
+  position: relative;
+}
+.mission-glyph-stack {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.mission-glyph-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.mission-glyph-card:hover {
+  border-color: var(--accent-red);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4), var(--glow-red);
+}
+.mission-glyph-card:nth-child(2):hover { border-color: var(--accent-teal); box-shadow: 0 12px 30px rgba(0,0,0,0.4), var(--glow-teal); }
+.mission-glyph-card:nth-child(3):hover { border-color: var(--accent-purple); box-shadow: 0 12px 30px rgba(0,0,0,0.4), var(--glow-purple); }
+.mission-glyph-card:nth-child(4):hover { border-color: var(--accent-gold); box-shadow: 0 12px 30px rgba(0,0,0,0.4), var(--glow-gold); }
+.mission-glyph-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+.mission-glyph-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--text-muted);
+}
+.mission-glyph-card:first-child    .mission-glyph-label { color: var(--accent-red); }
+.mission-glyph-card:nth-child(2)   .mission-glyph-label { color: var(--accent-teal); }
+.mission-glyph-card:nth-child(3)   .mission-glyph-label { color: var(--accent-purple); }
+.mission-glyph-card:nth-child(4)   .mission-glyph-label { color: var(--accent-gold); }
+
+/* ── VALUES ── */
+.values-section { margin-bottom: 100px; }
+.values-header { text-align: center; margin-bottom: 48px; }
+.values-header .section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-purple); margin-bottom: 12px;
+}
+.values-header .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--accent-purple); }
+.values-header h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 3vw, 36px); font-weight: 700;
+}
+.values-header h2 span {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+.value-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.value-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent-teal)), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.value-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+.value-card:hover::before { opacity: 1; }
+.value-card:nth-child(1) { --card-accent: var(--accent-red); }
+.value-card:nth-child(2) { --card-accent: var(--accent-teal); }
+.value-card:nth-child(3) { --card-accent: var(--accent-purple); }
+.value-card:nth-child(4) { --card-accent: var(--accent-gold); }
+.value-card:nth-child(5) { --card-accent: var(--accent-red); }
+.value-card:nth-child(6) { --card-accent: var(--accent-teal); }
+.value-icon {
+  font-size: 32px; margin-bottom: 16px; display: block;
+  width: 52px; height: 52px; border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+}
+.value-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 14px; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.value-desc {
+  font-size: 13px; color: var(--text-muted); line-height: 1.7; font-weight: 400;
+}
+
+/* ── TEAM ── */
+.team-section { margin-bottom: 100px; }
+.team-header { text-align: center; margin-bottom: 48px; }
+.team-header .section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-red); margin-bottom: 12px;
+}
+.team-header .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--accent-red); }
+.team-header h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 3vw, 36px); font-weight: 700;
+}
+.team-header h2 span {
+  background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+}
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.team-card:hover {
+  border-color: var(--accent-red);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4), var(--glow-red);
+}
+.team-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 700; color: #fff;
+  border: 2px solid var(--accent-red);
+  box-shadow: var(--glow-red);
+}
+.team-name {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px;
+}
+.team-role {
+  font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--accent-teal); margin-bottom: 10px;
+}
+.team-bio {
+  font-size: 12px; color: var(--text-muted); line-height: 1.6;
+}
+
+/* ── TIMELINE ── */
+.timeline-section { margin-bottom: 100px; }
+.timeline-header { margin-bottom: 48px; }
+.timeline-section-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-gold);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+}
+.timeline-section-tag::before { content: ''; width: 24px; height: 2px; background: var(--accent-gold); }
+.timeline-heading {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 3vw, 36px); font-weight: 700;
+}
+.timeline-heading span {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-red));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.timeline { position: relative; padding-left: 40px; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 10px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, var(--accent-red), var(--accent-purple), var(--accent-teal));
+  opacity: 0.4;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+  padding-bottom: 0;
+}
+.timeline-dot {
+  position: absolute; left: -36px; top: 6px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent-red);
+  border: 2px solid var(--bg-deep);
+  box-shadow: 0 0 12px rgba(230,57,70,0.5);
+}
+.timeline-item:nth-child(2) .timeline-dot { background: var(--accent-purple); box-shadow: 0 0 12px rgba(155,89,255,0.5); }
+.timeline-item:nth-child(3) .timeline-dot { background: var(--accent-teal);   box-shadow: 0 0 12px rgba(0,212,184,0.5); }
+.timeline-item:nth-child(4) .timeline-dot { background: var(--accent-gold);   box-shadow: 0 0 12px rgba(244,196,48,0.5); }
+.timeline-item:nth-child(5) .timeline-dot { background: var(--accent-red);    box-shadow: 0 0 12px rgba(230,57,70,0.5); }
+.timeline-year {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent-teal); margin-bottom: 8px;
+}
+.timeline-item:nth-child(1) .timeline-year { color: var(--accent-red); }
+.timeline-item:nth-child(2) .timeline-year { color: var(--accent-purple); }
+.timeline-item:nth-child(4) .timeline-year { color: var(--accent-gold); }
+.timeline-event-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 16px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;
+}
+.timeline-event-desc {
+  font-size: 14px; color: var(--text-muted); line-height: 1.7;
+}
+
+/* ── CTA ── */
+.about-cta {
+  background: linear-gradient(135deg, rgba(230,57,70,0.08), rgba(155,89,255,0.08));
+  border: 1px solid rgba(230,57,70,0.2);
+  border-radius: 16px;
+  padding: 56px 48px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.about-cta::before {
+  content: '⛩';
+  position: absolute; top: -20px; right: -20px;
+  font-size: 160px; opacity: 0.04; pointer-events: none;
+}
+.about-cta-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-red); margin-bottom: 16px;
+}
+.about-cta h2 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(22px, 3vw, 40px); font-weight: 900; margin-bottom: 16px;
+}
+.about-cta h2 span {
+  background: linear-gradient(135deg, var(--accent-red), var(--accent-gold));
+  background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.about-cta-sub {
+  font-size: 15px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7;
+}
+.about-cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.about-cta-btns a {
+  padding: 14px 32px; border-radius: 4px; font-family: 'Rajdhani', sans-serif;
+  font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; cursor: pointer; transition: all 0.3s;
+}
+.cta-btn-primary {
+  background: linear-gradient(135deg, var(--accent-red), #c0392b);
+  color: #fff; box-shadow: var(--glow-red);
+}
+.cta-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(230,57,70,0.8); }
+.cta-btn-secondary {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);
+  color: var(--text-primary);
+}
+.cta-btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+
+@media (max-width: 900px) {
+  .mission-block { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 768px) {
+  .about-hero { padding: 60px 24px; min-height: auto; }
+  .about-body { padding: 48px 20px; }
+  .about-stat-cell { min-width: 50%; border-bottom: 1px solid var(--border); }
+  .about-cta { padding: 40px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="noise-overlay"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="index.html">⛩ Hanabi Live</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="browse.html">Browse</a>
+    <a class="nav-link" href="schedule.html">Schedule</a>
+    <a class="nav-link" href="profile.html">Profile</a>
+  </div>
+  <div class="nav-auth">
+    <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="about-hero-bg"></div>
+  <div class="about-hero-particles" id="aboutParticles"></div>
+  <div class="about-hero-content">
+    <div class="about-eyebrow">⛩ Our Story</div>
+    <h1 class="about-hero-title">
+      <span class="line1">Bringing Anime</span>
+      <span class="line2">To The World</span>
+    </h1>
+    <p class="about-hero-desc">
+      Hanabi Live was born from a simple dream — to create the most beautiful, fast, and community-driven anime streaming experience on the planet. We're otaku, just like you.
+    </p>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="about-stats-bar">
+  <div class="about-stat-cell">
+    <span class="about-stat-num red">50K+</span>
+    <div class="about-stat-label">Episodes Available</div>
+  </div>
+  <div class="about-stat-cell">
+    <span class="about-stat-num teal">2M+</span>
+    <div class="about-stat-label">Active Members</div>
+  </div>
+  <div class="about-stat-cell">
+    <span class="about-stat-num gold">1,200+</span>
+    <div class="about-stat-label">Anime Titles</div>
+  </div>
+  <div class="about-stat-cell">
+    <span class="about-stat-num purple">4K</span>
+    <div class="about-stat-label">Max Quality</div>
+  </div>
+  <div class="about-stat-cell">
+    <span class="about-stat-num red">24/7</span>
+    <div class="about-stat-label">Streaming Uptime</div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="about-body">
+
+  <!-- MISSION -->
+  <div class="mission-block">
+    <div class="mission-text-side">
+      <div class="mission-section-tag">🎯 Mission</div>
+      <h2 class="mission-heading">We exist to <span>connect fans</span> with the stories they love</h2>
+      <p class="mission-p">
+        Anime is more than entertainment — it's a medium that explores the full depth of human experience, from the most intimate personal struggles to universe-spanning epics. We believe everyone deserves access to these stories.
+      </p>
+      <p class="mission-p">
+        Hanabi Live was founded in 2024 by a group of long-time anime fans who were frustrated with slow, ugly, or overpriced streaming platforms. We set out to build something better — something that respects both the art and the audience.
+      </p>
+      <p class="mission-p">
+        Our platform is free to use. We fund development through community support and are committed to staying ad-free, fast, and open to fans around the world.
+      </p>
+    </div>
+    <div class="mission-visual-side">
+      <div class="mission-glyph-stack">
+        <div class="mission-glyph-card">
+          <span class="mission-glyph-icon">🎌</span>
+          <div class="mission-glyph-label">Authentic</div>
+        </div>
+        <div class="mission-glyph-card">
+          <span class="mission-glyph-icon">⚡</span>
+          <div class="mission-glyph-label">Lightning Fast</div>
+        </div>
+        <div class="mission-glyph-card">
+          <span class="mission-glyph-icon">🌍</span>
+          <div class="mission-glyph-label">Global Community</div>
+        </div>
+        <div class="mission-glyph-card">
+          <span class="mission-glyph-icon">🔓</span>
+          <div class="mission-glyph-label">Free Access</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VALUES -->
+  <div class="values-section">
+    <div class="values-header">
+      <div class="section-tag">💫 What We Stand For</div>
+      <h2>Our Core <span>Values</span></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">❤️</div>
+        <div class="value-title">Fan First</div>
+        <div class="value-desc">Every decision we make starts with one question: does this make things better for anime fans? Not advertisers. Not metrics. Fans.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">⚡</div>
+        <div class="value-title">Speed Matters</div>
+        <div class="value-desc">Buffering and slow load times ruin the magic. We obsess over performance so your episode starts the moment you click play.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <div class="value-title">Global Reach</div>
+        <div class="value-desc">Anime is a global art form. We support multiple languages, subtitles, and work to make the platform accessible everywhere on earth.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔒</div>
+        <div class="value-title">Privacy Respect</div>
+        <div class="value-desc">We collect the minimum data needed, never sell your information, and give you full control over your account and content.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🎨</div>
+        <div class="value-title">Beautiful Design</div>
+        <div class="value-desc">Anime is visual art. Our platform should be worthy of the content it carries — designed with the same care and intention as the shows themselves.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Community</div>
+        <div class="value-desc">From comments to favorites to schedule tracking, we build features that bring fans together and make watching more fun.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEAM -->
+  <div class="team-section">
+    <div class="team-header">
+      <div class="section-tag">🧑‍💻 The Crew</div>
+      <h2>Meet the <span>Team</span></h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--accent-red),var(--accent-purple))">K</div>
+        <div class="team-name">Kaito Mizushima</div>
+        <div class="team-role">Founder & CEO</div>
+        <div class="team-bio">Lifelong otaku, full-stack developer, and the guy who stayed up until 3am watching Fullmetal Alchemist in 2004.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--accent-teal),var(--accent-purple))">A</div>
+        <div class="team-name">Aiko Tanaka</div>
+        <div class="team-role">Head of Design</div>
+        <div class="team-bio">Former UI designer at a major streaming service. Quit to make something she'd actually want to use. Favorite anime: Violet Evergarden.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--accent-gold),var(--accent-red))">R</div>
+        <div class="team-name">Ren Okazaki</div>
+        <div class="team-role">Lead Engineer</div>
+        <div class="team-bio">Backend wizard and performance fanatic. Believes every millisecond of load time is a crime against anime.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--accent-purple),var(--accent-teal))">S</div>
+        <div class="team-name">Sora Yamamoto</div>
+        <div class="team-role">Community Manager</div>
+        <div class="team-bio">The heart of Hanabi Live. Manages our community, replies to every piece of feedback, and has a spreadsheet of 800+ anime ranked.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline-section">
+    <div class="timeline-header">
+      <div class="timeline-section-tag">📅 Our Journey</div>
+      <h2 class="timeline-heading">The <span>Story So Far</span></h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2024 — Founding</div>
+        <div class="timeline-event-title">The Spark</div>
+        <div class="timeline-event-desc">Four friends frustrated with existing platforms sketched the first version of Hanabi Live on a whiteboard. The goal: build the anime streaming platform we always wanted.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2024 — Alpha</div>
+        <div class="timeline-event-title">First Build</div>
+        <div class="timeline-event-desc">Launched a private alpha with 50 users. The feedback was overwhelming — fast, beautiful, and exactly what the community needed.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2025 — Beta Launch</div>
+        <div class="timeline-event-title">Opening the Gates</div>
+        <div class="timeline-event-desc">Public beta launched. 500,000 users in the first month. Introduced Google sign-in, profiles, favorites, and the comment system.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2025 — Growth</div>
+        <div class="timeline-event-title">1 Million Members</div>
+        <div class="timeline-event-desc">Crossed 1 million registered members. Expanded the library to 1,200+ titles, added schedule tracking, and launched 4K streaming support.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2026 — Today</div>
+        <div class="timeline-event-title">2M+ and Growing</div>
+        <div class="timeline-event-desc">With over 2 million members worldwide, we're continuing to grow the library, improve performance, and build features requested by our amazing community.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="about-cta">
+    <div class="about-cta-eyebrow">🎌 Join Us</div>
+    <h2>Ready to start watching <span>great anime?</span></h2>
+    <p class="about-cta-sub">
+      Free forever. No ads. Just great anime and a community that loves it as much as you do.
+    </p>
+    <div class="about-cta-btns">
+      <a href="browse.html" class="cta-btn-primary">▶ Browse Anime</a>
+      <a href="index.html" class="cta-btn-secondary">🏠 Go to Home</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- PAGE FOOTER NOTE -->
+<div style="text-align:center;padding:32px;border-top:1px solid var(--border);position:relative;z-index:2;">
+  <span style="font-size:12px;color:var(--text-muted);">© 2026 Hanabi Live. Made with ❤ by anime fans, for anime fans.</span>
+  <span style="margin:0 12px;color:var(--border);">|</span>
+  <a href="pp.html"     style="font-size:12px;color:var(--text-muted);text-decoration:none;">Privacy Policy</a>
+  <span style="margin:0 8px;color:var(--border);">·</span>
+  <a href="tos.html"    style="font-size:12px;color:var(--text-muted);text-decoration:none;">Terms of Service</a>
+  <span style="margin:0 8px;color:var(--border);">·</span>
+  <a href="sitemap.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;">Sitemap</a>
+</div>
+
+<script>
+// Subtle particles
+(function() {
+  const c = document.getElementById('aboutParticles');
+  const colors = ['#e63946','#9b59ff','#00d4b8','#f4c430'];
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const s = Math.random() * 3 + 2;
+    p.style.cssText = `width:${s}px;height:${s}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*4)]};animation-duration:${Math.random()*10+8}s;animation-delay:${Math.random()*10}s;opacity:0.3;position:absolute;border-radius:50%;animation-name:floatParticle;animation-timing-function:linear;animation-iteration-count:infinite;`;
+    c.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
