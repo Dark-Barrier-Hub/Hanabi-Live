@@ -6,14 +6,14 @@
 <title>Watch — Hanabi Live</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Stack+Sans+Headline:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
   const firebaseConfig = {
     apiKey:"AIzaSyB6FFZb-APx-w1XmGe2GZj3nGMpUGhSNn0",
     authDomain:"hanabilive-dbh004.firebaseapp.com",
@@ -30,7 +30,8 @@
   window.__firebaseOps  = {
     createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
     onAuthStateChanged, GoogleAuthProvider, signInWithPopup,
-    doc, setDoc, getDoc, collection, addDoc, getDocs, query, orderBy
+    doc, setDoc, getDoc, collection, addDoc, getDocs, query, orderBy,
+    onSnapshot, serverTimestamp
   };
   onAuthStateChanged(auth, user => {
     window.__currentUser = user;
@@ -94,7 +95,7 @@ body { padding-top: 70px; }
   padding: 6px 18px; border-radius: 4px; font-size: 12px; font-weight: 700;
   letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
   background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-  color: var(--text-muted); font-family: 'Rajdhani', sans-serif;
+  color: var(--text-muted); font-family: 'Stack Sans Headline', sans-serif;
 }
 .season-tab.active {
   background: rgba(230,57,70,0.2); border-color: var(--accent-red); color: var(--accent-red);
@@ -104,7 +105,7 @@ body { padding-top: 70px; }
 .ep-search {
   padding: 10px 14px; margin: 0 0 2px;
   background: rgba(255,255,255,0.04); border: none; border-bottom: 1px solid var(--border);
-  color: var(--text-primary); font-family: 'Rajdhani', sans-serif; font-size: 13px;
+  color: var(--text-primary); font-family: 'Stack Sans Headline', sans-serif; font-size: 13px;
   width: 100%; outline: none;
   -webkit-user-select: text; user-select: text;
 }
@@ -346,7 +347,7 @@ async function init() {
   renderDetailHero();
   loadShow(currentEpNum);
   renderMore();
-  renderComments();
+  subscribeComments(currentAnimeId);
 
   // Sync URL so it always shows ?id=X&ep=Y from the start
   const initUrl = new URL(location.href);
@@ -528,39 +529,121 @@ function renderMore() {
   document.getElementById('moreSection').style.display = 'block';
 }
 
-/* ═══════════════ COMMENTS ═══════════════ */
-let comments = JSON.parse(localStorage.getItem('hbComments') || '[]');
+/* ═══════════════ COMMENTS (Firestore) ═══════════════ */
+let _commentsUnsub = null; // holds the onSnapshot unsubscribe fn
 
-function renderComments() {
-  const list = document.getElementById('commentsList');
-  document.getElementById('commentCount').textContent = comments.length;
-  list.innerHTML = comments.slice().reverse().map(c => `
-    <div class="comment-item">
-      <div class="comment-avatar" style="background:linear-gradient(135deg,${c.c1},${c.c2})">${c.avatar}</div>
-      <div>
-        <div class="comment-user">${c.user}<span>${c.time}</span></div>
-        <div class="comment-text">${c.text}</div>
-      </div>
-    </div>`).join('');
+/* Subscribe to live comments for the current anime */
+function subscribeComments(animeId) {
+  // Cancel any existing listener
+  if (_commentsUnsub) { _commentsUnsub(); _commentsUnsub = null; }
+
+  if (!window.__firebaseDb || !window.__firebaseOps) {
+    renderComments([]); return;
+  }
+
+  const { collection, query, orderBy, onSnapshot } = window.__firebaseOps;
+  const colRef = collection(window.__firebaseDb, 'anime', String(animeId), 'comments');
+  const q      = query(colRef, orderBy('createdAt', 'desc'));
+
+  // Show loading state
+  document.getElementById('commentsList').innerHTML =
+    `<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">Loading comments…</div>`;
+
+  _commentsUnsub = onSnapshot(q, snap => {
+    const docs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderComments(docs);
+  }, err => {
+    console.warn('Comments snapshot error:', err);
+    renderComments([]);
+  });
 }
 
-function postComment() {
+function renderComments(docs = []) {
+  document.getElementById('commentCount').textContent = docs.length;
+
+  if (!docs.length) {
+    document.getElementById('commentsList').innerHTML =
+      `<div style="padding:24px;text-align:center;color:var(--text-muted);font-size:13px;">
+         No comments yet — be the first!
+       </div>`;
+    return;
+  }
+
+  document.getElementById('commentsList').innerHTML = docs.map(c => {
+    // Format timestamp
+    let timeStr = 'just now';
+    if (c.createdAt?.toDate) {
+      const d   = c.createdAt.toDate();
+      const now = Date.now();
+      const diff = now - d.getTime();
+      if      (diff < 60000)           timeStr = 'just now';
+      else if (diff < 3600000)         timeStr = `${Math.floor(diff/60000)}m ago`;
+      else if (diff < 86400000)        timeStr = `${Math.floor(diff/3600000)}h ago`;
+      else                             timeStr = d.toLocaleDateString();
+    }
+
+    const avatarHtml = c.userImage
+      ? `<img src="${c.userImage}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+      : (c.username || 'U')[0].toUpperCase();
+
+    return `
+      <div class="comment-item">
+        <div class="comment-avatar" style="background:linear-gradient(135deg,#e63946,#9b59ff);overflow:hidden;">
+          ${avatarHtml}
+        </div>
+        <div>
+          <div class="comment-user">${escHtml(c.username || 'Otaku User')}<span>${timeStr}</span></div>
+          <div class="comment-text">${escHtml(c.text)}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+async function postComment() {
   const input = document.getElementById('commentInput');
   const text  = input.value.trim();
   if (!text) return;
   if (!window.__currentUser) { openModal('login'); return; }
-  const user = window.__currentUser;
-  const c = {
-    user:   user.displayName || user.email?.split('@')[0] || 'User',
-    avatar: (user.displayName || 'U')[0].toUpperCase(),
-    text, time: 'just now',
-    c1: '#e63946', c2: '#9b59ff'
-  };
-  comments.unshift(c);
-  localStorage.setItem('hbComments', JSON.stringify(comments.slice(0, 50)));
-  input.value = '';
-  renderComments();
-  showToast('Comment posted!', '💬');
+  if (!window.__firebaseDb || !window.__firebaseOps) {
+    showToast('Comments unavailable right now', '⚠️'); return;
+  }
+
+  const user    = window.__currentUser;
+  // Pull latest profile from cache for username / avatar
+  const profile = getProfileCache() || {};
+  const username  = profile.name  || user.displayName || user.email?.split('@')[0] || 'Otaku User';
+  const userImage = profile.photoBase64 || null;
+
+  const { collection, addDoc, serverTimestamp } = window.__firebaseOps;
+  const colRef = collection(window.__firebaseDb, 'anime', String(currentAnimeId), 'comments');
+
+  const submitBtn = document.querySelector('.comment-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Posting…';
+
+  try {
+    await addDoc(colRef, {
+      uid:       user.uid,
+      username,
+      userImage,
+      text,
+      createdAt: serverTimestamp(),
+    });
+    input.value = '';
+    showToast('Comment posted!', '💬');
+  } catch (e) {
+    console.error('Comment post error:', e);
+    showToast('Failed to post. Try again.', '❌');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Post Comment';
+  }
 }
 
 /* ═══════════════ BOOT ═══════════════ */

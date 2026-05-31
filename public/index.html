@@ -6,7 +6,7 @@
 <title>Hanabi Live — Your Gateway to Anime</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Stack+Sans+Headline:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 
 <!-- Firebase -->
@@ -64,7 +64,7 @@
 .hero-badge span { animation:pulse 2s infinite; }
 .hero-title {
   font-family:'Cinzel Decorative',serif;
-  font-size:clamp(36px,6vw,80px); font-weight:900; line-height:1.1;
+  font-size:clamp(36px,6vw,65px); font-weight:900; line-height:1.1;
   margin-bottom:20px; animation:fadeInUp 0.8s 0.2s ease both;
 }
 .hero-title .line1 { display:block; color:var(--text-primary); }
@@ -82,7 +82,7 @@
 .btn-hero {
   padding:14px 32px; font-size:15px; border-radius:4px; font-weight:700;
   letter-spacing:2px; text-transform:uppercase;
-  cursor:pointer; transition:all 0.3s; font-family:'Rajdhani',sans-serif; border:none;
+  cursor:pointer; transition:all 0.3s; font-family:'Stack Sans Headline',sans-serif; border:none;
 }
 .btn-hero-primary { background:linear-gradient(135deg,var(--accent-red),#c0392b); color:#fff; box-shadow:var(--glow-red); }
 .btn-hero-primary:hover { transform:translateY(-3px); box-shadow:0 0 40px rgba(230,57,70,0.8); }
@@ -267,6 +267,21 @@
   <div class="anime-grid" id="popularGrid"></div>
 </section>
 
+<!-- PRIVACY POLICY NOTICE (required for Google OAuth verification) -->
+<div style="position:relative;z-index:2;background:rgba(155,89,255,0.06);border-top:1px solid rgba(155,89,255,0.2);border-bottom:1px solid rgba(155,89,255,0.2);padding:18px 60px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;text-align:center;">
+  <span style="font-size:13px;color:var(--text-muted);">
+    🔒 By using <strong style="color:var(--text-primary);">Hanabi Live</strong>, you agree to our data practices.
+  </span>
+  <a href="https://hanabilive.qzz.io/pp.html" style="font-size:13px;font-weight:700;color:var(--accent-purple);text-decoration:none;border:1px solid rgba(155,89,255,0.4);padding:6px 16px;border-radius:20px;transition:all 0.3s;"
+     onmouseover="this.style.background='rgba(155,89,255,0.15)'" onmouseout="this.style.background='transparent'">
+    Privacy Policy
+  </a>
+  <a href="https://hanabilive.qzz.io/tos.html" style="font-size:13px;font-weight:700;color:var(--text-muted);text-decoration:none;border:1px solid rgba(255,255,255,0.1);padding:6px 16px;border-radius:20px;transition:all 0.3s;"
+     onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
+    Terms of Service
+  </a>
+</div>
+
 <!-- FOOTER -->
 <footer style="position:relative;z-index:2;background:rgba(4,5,13,0.97);border-top:1px solid var(--border);padding:56px 60px 32px;">
   <div style="max-width:1200px;margin:0 auto;">
@@ -342,10 +357,10 @@
           Company
         </div>
         <div style="display:flex;flex-direction:column;gap:12px;">
-          <a href="about.html"   class="footer-link">ℹ About Us</a>
-          <a href="pp.html"      class="footer-link">🔒 Privacy Policy</a>
-          <a href="tos.html"     class="footer-link">📜 Terms of Service</a>
-          <a href="sitemap.html" class="footer-link">🗺 Sitemap</a>
+          <a href="https://hanabilive.qzz.io/about.html"   class="footer-link">ℹ About Us</a>
+          <a href="https://hanabilive.qzz.io/pp.html"      class="footer-link">🔒 Privacy Policy</a>
+          <a href="https://hanabilive.qzz.io/tos.html"     class="footer-link">📜 Terms of Service</a>
+          <a href="https://hanabilive.qzz.io/sitemap.html" class="footer-link">🗺 Sitemap</a>
         </div>
       </div>
 
@@ -360,13 +375,13 @@
         © 2026 <strong style="color:rgba(232,234,246,0.5);">Hanabi Live</strong>. Made with ❤ by anime fans, for anime fans.
       </span>
       <div style="display:flex;gap:20px;flex-wrap:wrap;">
-        <a href="pp.html"      style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
+        <a href="https://hanabilive.qzz.io/pp.html"      style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
            onmouseover="this.style.color='var(--accent-purple)'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a>
-        <a href="tos.html"     style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
+        <a href="https://hanabilive.qzz.io/tos.html"     style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
            onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service</a>
-        <a href="sitemap.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
+        <a href="https://hanabilive.qzz.io/sitemap.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
            onmouseover="this.style.color='var(--accent-teal)'" onmouseout="this.style.color='var(--text-muted)'">Sitemap</a>
-        <a href="about.html"   style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
+        <a href="https://hanabilive.qzz.io/about.html"   style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
            onmouseover="this.style.color='var(--accent-gold)'" onmouseout="this.style.color='var(--text-muted)'">About Us</a>
       </div>
     </div>

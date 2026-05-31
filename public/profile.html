@@ -6,14 +6,14 @@
 <title>Profile — Hanabi Live</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Stack+Sans+Headline:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 
 <!-- Firebase -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, collectionGroup, query, where, orderBy, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
   const firebaseConfig = {
     apiKey:"AIzaSyB6FFZb-APx-w1XmGe2GZj3nGMpUGhSNn0",
     authDomain:"hanabilive-dbh004.firebaseapp.com",
@@ -27,7 +27,7 @@
   const db   = getFirestore(app);
   window.__firebaseAuth = auth;
   window.__firebaseDb   = db;
-  window.__firebaseOps  = { signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, doc, setDoc, getDoc };
+  window.__firebaseOps  = { signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, doc, setDoc, getDoc, collection, collectionGroup, query, where, orderBy, getDocs, deleteDoc };
   onAuthStateChanged(auth, user => {
     window.__currentUser = user;
     document.dispatchEvent(new CustomEvent('authStateChanged', { detail: user }));
@@ -112,10 +112,75 @@ body { padding-top: 70px; }
   animation: pulse 1s infinite;
 }
 
+/* ── comments section ── */
+.my-comment-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+.my-comment-card:hover {
+  border-color: rgba(155,89,255,0.4);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.my-comment-avatar {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent-red), var(--accent-purple));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; color: #fff; overflow: hidden;
+  border: 2px solid rgba(155,89,255,0.3);
+}
+.my-comment-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.my-comment-body { flex: 1; min-width: 0; }
+.my-comment-anime {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--accent-teal);
+  margin-bottom: 6px; cursor: pointer; text-decoration: none;
+}
+.my-comment-anime:hover { color: var(--accent-gold); }
+.my-comment-anime::before { content: '▶'; font-size: 9px; }
+.my-comment-text {
+  font-size: 14px; color: rgba(232,234,246,0.82); line-height: 1.65;
+  word-break: break-word;
+}
+.my-comment-meta {
+  font-size: 11px; color: var(--text-muted); margin-top: 8px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.my-comment-del {
+  margin-left: auto; flex-shrink: 0;
+  background: rgba(230,57,70,0.08); border: 1px solid rgba(230,57,70,0.25);
+  color: var(--accent-red); border-radius: 6px;
+  padding: 5px 12px; font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.25s;
+  font-family: 'Stack Sans Headline', sans-serif; letter-spacing: 0.5px;
+}
+.my-comment-del:hover { background: var(--accent-red); color: #fff; box-shadow: var(--glow-red); }
+.my-comment-del.confirming {
+  background: var(--accent-red); color: #fff;
+  animation: pulse 0.6s ease infinite;
+}
+.comments-list-wrap {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.comments-empty {
+  color: var(--text-muted); text-align: center; padding: 60px 20px; font-size: 15px;
+}
+.comments-loading {
+  color: var(--text-muted); text-align: center; padding: 40px 20px; font-size: 14px;
+}
+
 @media(max-width: 768px) {
   .profile-hero { flex-direction: column; padding: 24px; text-align: center; }
   .profile-stats { justify-content: center; }
 }
+
 </style>
 </head>
 <body>
@@ -171,6 +236,10 @@ body { padding-top: 70px; }
           <span class="profile-stat-num" id="statFavs">0</span>
           <div class="profile-stat-label">Favorites</div>
         </div>
+        <div class="profile-stat">
+          <span class="profile-stat-num" id="statComments">0</span>
+          <div class="profile-stat-label">Comments</div>
+        </div>
       </div>
     </div>
   </div>
@@ -188,6 +257,17 @@ body { padding-top: 70px; }
     </div>
   </div>
 
+  <!-- My Comments -->
+  <div class="section" style="padding-top:0;">
+    <div class="section-header">
+      <div class="section-tag">💬 Activity</div>
+      <h2 class="section-title">My <span>Comments</span></h2>
+    </div>
+    <div class="comments-list-wrap" id="myCommentsList">
+      <div class="comments-loading">Loading your comments…</div>
+    </div>
+  </div>
+
 </div><!-- /profileLoggedIn -->
 
 <script src="assets/js/core.js"></script>
@@ -201,6 +281,30 @@ async function loadAnime() {
   ANIME_LIST = await res.json();
 }
 
+/* ── helpers ── */
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function animeNameById(id) {
+  const a = ANIME_LIST.find(a => String(a.id) === String(id));
+  return a ? a.title : `Anime #${id}`;
+}
+
+function fmtTime(ts) {
+  if (!ts) return '';
+  // Handle Firestore Timestamp objects
+  const d = ts?.toDate ? ts.toDate() : (typeof ts === 'number' ? new Date(ts) : new Date(ts));
+  if (isNaN(d.getTime())) return '';
+  const diff = Date.now() - d.getTime();
+  if (diff < 60000)    return 'just now';
+  if (diff < 3600000)  return `${Math.floor(diff/60000)}m ago`;
+  if (diff < 86400000) return `${Math.floor(diff/3600000)}h ago`;
+  return d.toLocaleDateString();
+}
+
 /* ── render favorites grid ── */
 function updateProfileFavs() {
   const favIds    = getFavs();
@@ -212,27 +316,147 @@ function updateProfileFavs() {
 }
 window.updateProfileFavs = updateProfileFavs;
 
+/* ── load & render user comments ── */
+async function loadMyComments(uid) {
+  const listEl = document.getElementById('myCommentsList');
+  listEl.innerHTML = '<div class="comments-loading">⏳ Loading your comments…</div>';
+
+  if (!window.__firebaseDb || !window.__firebaseOps) {
+    listEl.innerHTML = '<div class="comments-empty">Comments unavailable.</div>';
+    return;
+  }
+
+  const { collectionGroup, query, where, getDocs } = window.__firebaseOps;
+
+  try {
+    // ── Query WITHOUT orderBy to avoid needing a composite index ──
+    // We sort client-side instead so no Firestore index setup is needed.
+    const q    = query(
+      collectionGroup(window.__firebaseDb, 'comments'),
+      where('uid', '==', uid)
+    );
+    const snap = await getDocs(q);
+
+    // Update the counter with the real live count from Firestore
+    document.getElementById('statComments').textContent = snap.size;
+
+    if (snap.empty) {
+      listEl.innerHTML = '<div class="comments-empty">No comments yet — go discuss some anime! 🎌</div>';
+      return;
+    }
+
+    // Sort newest-first on the client side
+    const docs = snap.docs.slice().sort((a, b) => {
+      const tsA = a.data().createdAt;
+      const tsB = b.data().createdAt;
+      const getMs = ts => ts?.toDate ? ts.toDate().getTime() : (typeof ts === 'number' ? ts : 0);
+      return getMs(tsB) - getMs(tsA);
+    });
+
+    listEl.innerHTML = docs.map(d => {
+      const c       = d.data();
+      // ref path: anime/{animeId}/comments/{commentId}
+      const animeId = d.ref.parent.parent?.id || '';
+      const title   = animeNameById(animeId);
+      const time    = fmtTime(c.createdAt);
+
+      const avatarHtml = c.userImage
+        ? `<img src="${c.userImage}" alt="avatar">`
+        : escHtml((c.username || 'U')[0].toUpperCase());
+
+      return `
+        <div class="my-comment-card" id="ccard-${d.id}">
+          <div class="my-comment-avatar">${avatarHtml}</div>
+          <div class="my-comment-body">
+            <a class="my-comment-anime" href="watch.html?id=${escHtml(animeId)}">${escHtml(title)}</a>
+            <div class="my-comment-text">${escHtml(c.text)}</div>
+            <div class="my-comment-meta">
+              <span>🕐 ${time}</span>
+            </div>
+          </div>
+          <button class="my-comment-del"
+                  onclick="deleteComment(this,'${escHtml(animeId)}','${d.id}')">
+            🗑 Delete
+          </button>
+        </div>`;
+    }).join('');
+
+  } catch (err) {
+    console.error('Load comments error:', err);
+    listEl.innerHTML = `<div class="comments-empty">Could not load comments.<br><small style="opacity:0.6;">${err.message}</small></div>`;
+  }
+}
+
+/* ── delete comment ── */
+let _delConfirmTimer = null;
+async function deleteComment(btn, animeId, commentId) {
+  // Two-tap confirm: first tap changes button, second tap deletes
+  if (!btn.classList.contains('confirming')) {
+    btn.classList.add('confirming');
+    btn.textContent = '⚠ Confirm?';
+    clearTimeout(_delConfirmTimer);
+    _delConfirmTimer = setTimeout(() => {
+      btn.classList.remove('confirming');
+      btn.textContent = '🗑 Delete';
+    }, 3000);
+    return;
+  }
+
+  // Confirmed — delete
+  btn.disabled = true;
+  btn.textContent = '…';
+  try {
+    const { doc, deleteDoc } = window.__firebaseOps;
+    const ref = doc(window.__firebaseDb, 'anime', animeId, 'comments', commentId);
+    await deleteDoc(ref);
+
+    // Fade out card
+    const card = document.getElementById(`ccard-${commentId}`);
+    if (card) {
+      card.style.transition = 'opacity 0.3s, transform 0.3s';
+      card.style.opacity    = '0';
+      card.style.transform  = 'translateX(20px)';
+      setTimeout(() => card.remove(), 350);
+    }
+
+    // Update count
+    const countEl = document.getElementById('statComments');
+    countEl.textContent = Math.max(0, parseInt(countEl.textContent || '0') - 1);
+
+    // If nothing left
+    const listEl = document.getElementById('myCommentsList');
+    if (!listEl.querySelector('.my-comment-card')) {
+      listEl.innerHTML = '<div class="comments-empty">No comments yet — go discuss some anime! 🎌</div>';
+    }
+
+    showToast('Comment deleted', '🗑');
+  } catch (e) {
+    console.error('Delete error:', e);
+    btn.disabled  = false;
+    btn.textContent = '🗑 Delete';
+    btn.classList.remove('confirming');
+    showToast('Delete failed. Try again.', '❌');
+  }
+}
+
 /* ── render full profile from cache ── */
 function renderProfile(user) {
   document.getElementById('profileLoggedOut').style.display = 'none';
   document.getElementById('profileLoggedIn').style.display  = 'block';
 
-  // Pull from localStorage cache (populated by core.js authStateChanged)
   const profile = getProfileCache() || {};
-
-  const name  = profile.name  || user.displayName || user.email?.split('@')[0] || 'Otaku User';
-  const email = profile.email || user.email || '';
-  const photo = profile.photoBase64 || null;
+  const name    = profile.name  || user.displayName || user.email?.split('@')[0] || 'Otaku User';
+  const email   = profile.email || user.email || '';
+  const photo   = profile.photoBase64 || null;
 
   document.getElementById('profileName').textContent  = name;
   document.getElementById('profileEmail').textContent = email;
 
-  const avatarEl     = document.getElementById('profileAvatar');
-  const letterEl     = document.getElementById('profileAvatarLetter');
+  const avatarEl = document.getElementById('profileAvatar');
+  const letterEl = document.getElementById('profileAvatarLetter');
 
   if (photo) {
     letterEl.style.display = 'none';
-    // Remove old img if any
     const oldImg = avatarEl.querySelector('img');
     if (oldImg) oldImg.remove();
     const img = document.createElement('img');
@@ -246,6 +470,7 @@ function renderProfile(user) {
   }
 
   updateProfileFavs();
+  loadMyComments(user.uid);
 }
 
 /* ── avatar photo upload ── */
@@ -255,19 +480,15 @@ async function handleAvatarUpload(event) {
   if (file.size > 2 * 1024 * 1024) {
     showToast('Image too large (max 2MB)', '⚠️'); return;
   }
-
-  // Show uploading spinner on avatar
   const avatarEl = document.getElementById('profileAvatar');
   const spinner  = document.createElement('div');
-  spinner.className = 'avatar-uploading';
+  spinner.className   = 'avatar-uploading';
   spinner.textContent = '⏳';
   avatarEl.appendChild(spinner);
 
   try {
     const base64 = await fileToBase64(file);
     await saveProfilePhoto(base64);
-
-    // Update avatar display
     spinner.remove();
     document.getElementById('profileAvatarLetter').style.display = 'none';
     const oldImg = avatarEl.querySelector('img');
@@ -275,18 +496,13 @@ async function handleAvatarUpload(event) {
     const img = document.createElement('img');
     img.src = base64;
     avatarEl.appendChild(img);
-
     showToast('Profile photo updated! 📸', '📸');
-
-    // Also refresh nav avatar
     document.dispatchEvent(new CustomEvent('authStateChanged', { detail: window.__currentUser }));
   } catch (e) {
     spinner.remove();
     showToast('Upload failed. Try again.', '❌');
     console.error(e);
   }
-
-  // Reset input so same file can be re-selected
   event.target.value = '';
 }
 
@@ -310,8 +526,6 @@ loadAnime().then(() => {
 document.addEventListener('authStateChanged', e => {
   const user = e.detail;
   if (user) {
-    // core.js authStateChanged handler runs first and populates cache;
-    // use a tiny delay so cache is written before we read it
     setTimeout(() => {
       if (animeReady) renderProfile(user);
     }, 80);
