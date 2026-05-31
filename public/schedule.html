@@ -73,7 +73,37 @@ body { padding-top:70px; }
     <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
     <button class="btn btn-primary" onclick="openModal('register')">Sign Up</button>
   </div>
+  <!-- Hamburger (mobile only) -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-mobile-drawer" id="navMobileDrawer">
+  <a class="nav-link" href="index.html">🏠 Home</a>
+  <a class="nav-link" href="browse.html">🔍 Browse</a>
+  <a class="nav-link active" href="schedule.html">📅 Schedule</a>
+  <a class="nav-link" href="profile.html">👤 Profile</a>
+  <div class="nav-mobile-auth" id="navMobileAuth">
+    <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()">Log In</button>
+    <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()">Sign Up</button>
+  </div>
+</div>
+
+<!-- AD -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2504366420154184"
+     crossorigin="anonymous"></script>
+<!-- schedule-ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2504366420154184"
+     data-ad-slot="8730935085"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <div class="schedule-page-hero">
   <div class="section-tag">📅 Airing Schedule</div>
@@ -91,6 +121,54 @@ body { padding-top:70px; }
 <script src="assets/js/core.js"></script>
 <script>
 mountAuthModal();
+
+// ─── MOBILE NAV TOGGLE ───
+function toggleMobileNav() {
+  const btn    = document.getElementById('navHamburger');
+  const drawer = document.getElementById('navMobileDrawer');
+  const isOpen = drawer.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  drawer.classList.toggle('open', !isOpen);
+  // Prevent body scroll when drawer open
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+window.toggleMobileNav = toggleMobileNav;
+
+// Close drawer on resize to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.getElementById('navHamburger')?.classList.remove('open');
+    document.getElementById('navMobileDrawer')?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close drawer when clicking outside
+document.addEventListener('click', (e) => {
+  const drawer = document.getElementById('navMobileDrawer');
+  const btn    = document.getElementById('navHamburger');
+  if (drawer?.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
+    toggleMobileNav();
+  }
+});
+
+// Sync mobile auth area with auth state
+document.addEventListener('authStateChanged', (e) => {
+  const user = e.detail;
+  const mobileAuth = document.getElementById('navMobileAuth');
+  if (!mobileAuth) return;
+  if (user) {
+    const profile = window.getProfileCache?.() || {};
+    const name = profile.name || user.displayName || 'User';
+    mobileAuth.innerHTML = `
+      <a class="btn btn-outline" href="profile.html" style="text-decoration:none;flex:1;text-align:center;">👤 ${name}</a>
+      <button class="btn btn-primary" onclick="doSignOut()" style="flex:1;">Sign Out</button>`;
+  } else {
+    mobileAuth.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()" style="flex:1;">Log In</button>
+      <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()" style="flex:1;">Sign Up</button>`;
+  }
+});
 
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 const DAY_SHORT = ['MON','TUE','WED','THU','FRI','SAT','SUN'];

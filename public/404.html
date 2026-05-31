@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Page Not Found | Hanabi Live</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⛩</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Stack+Sans+Headline:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+
+<style>
+body { padding-top: 70px; overflow-x: hidden; }
+
+/* ── FULL-SCREEN 404 ── */
+.not-found-page {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: 40px 24px;
+}
+
+/* Animated background orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: orbFloat ease-in-out infinite;
+}
+.orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(230,57,70,0.18) 0%, transparent 70%);
+  top: -10%; left: -10%;
+  animation-duration: 12s;
+}
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(155,89,255,0.15) 0%, transparent 70%);
+  bottom: -5%; right: -5%;
+  animation-duration: 15s;
+  animation-delay: -4s;
+}
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(0,212,184,0.1) 0%, transparent 70%);
+  top: 40%; left: 60%;
+  animation-duration: 10s;
+  animation-delay: -2s;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+/* Particles container */
+.nf-particles { position: absolute; inset: 0; pointer-events: none; }
+
+/* Main content */
+.nf-content {
+  text-align: center;
+  position: relative;
+  z-index: 5;
+  max-width: 680px;
+  animation: fadeInUp 0.8s ease both;
+}
+
+/* Giant glitchy 404 */
+.nf-code {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(100px, 22vw, 220px);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 8px;
+  position: relative;
+  letter-spacing: -4px;
+  background: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-gold) 40%, var(--accent-teal) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 40px rgba(230,57,70,0.5));
+  animation: glitch 4s infinite;
+}
+.nf-code::before,
+.nf-code::after {
+  content: '404';
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  background: inherit;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.nf-code::before {
+  animation: glitchTop 4s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  transform: translateX(-3px);
+  filter: drop-shadow(0 0 10px rgba(230,57,70,0.8));
+}
+.nf-code::after {
+  animation: glitchBot 4s infinite;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  transform: translateX(3px);
+  filter: drop-shadow(0 0 10px rgba(0,212,184,0.6));
+}
+@keyframes glitch {
+  0%, 94%, 100% { transform: none; }
+  95%  { transform: skewX(0.5deg); }
+  97%  { transform: skewX(-0.5deg); }
+}
+@keyframes glitchTop {
+  0%, 94%, 100% { transform: translateX(-3px); opacity: 0.8; }
+  95% { transform: translateX(4px) translateY(-2px); opacity: 0.6; }
+  97% { transform: translateX(-4px) translateY(1px); opacity: 0.4; }
+  98% { transform: translateX(0); opacity: 0; }
+}
+@keyframes glitchBot {
+  0%, 94%, 100% { transform: translateX(3px); opacity: 0.6; }
+  95% { transform: translateX(-4px) translateY(2px); opacity: 0.8; }
+  97% { transform: translateX(4px) translateY(-1px); opacity: 0.3; }
+  98% { transform: translateX(0); opacity: 0; }
+}
+
+/* Gate icon */
+.nf-shrine {
+  font-size: 56px;
+  display: block;
+  margin-bottom: 16px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(244,196,48,0.6));
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* Labels */
+.nf-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--accent-red);
+  margin-bottom: 16px;
+}
+.nf-eyebrow::before,
+.nf-eyebrow::after { content: ''; width: 20px; height: 2px; background: var(--accent-red); }
+
+.nf-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  line-height: 1.2;
+}
+
+.nf-desc {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 36px;
+  font-weight: 300;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CTA Buttons */
+.nf-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.nf-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 4px;
+  font-family: 'Stack Sans Headline', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; text-decoration: none;
+  cursor: pointer; transition: all 0.3s; border: none;
+}
+.nf-btn-primary {
+  background: linear-gradient(135deg, var(--accent-red), #c0392b);
+  color: #fff; box-shadow: var(--glow-red);
+}
+.nf-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 0 40px rgba(230,57,70,0.8); }
+.nf-btn-secondary {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: var(--text-primary);
+}
+.nf-btn-secondary:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); }
+.nf-btn-teal {
+  background: rgba(0,212,184,0.1);
+  border: 1px solid rgba(0,212,184,0.3);
+  color: var(--accent-teal);
+}
+.nf-btn-teal:hover { background: var(--accent-teal); color: #000; transform: translateY(-3px); box-shadow: var(--glow-teal); }
+
+/* Quick links */
+.nf-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 20px;
+  flex-wrap: wrap;
+}
+.nf-link-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-muted);
+  width: 100%;
+}
+.nf-link {
+  font-size: 13px; color: var(--text-muted); text-decoration: none;
+  font-weight: 600; transition: color 0.2s;
+  display: flex; align-items: center; gap: 5px;
+}
+.nf-link:hover { color: var(--accent-purple); }
+.nf-link::before { content: '›'; font-size: 16px; }
+
+/* Divider line */
+.nf-divider {
+  width: 120px; height: 1px; margin: 28px auto 28px;
+  background: linear-gradient(90deg, transparent, var(--accent-purple), transparent);
+  opacity: 0.4;
+}
+
+/* Fun error detail strip */
+.nf-status-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(230,57,70,0.07);
+  border: 1px solid rgba(230,57,70,0.2);
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+}
+.nf-status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-red);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .nf-code { letter-spacing: -2px; }
+  .nf-btns { flex-direction: column; align-items: center; }
+  .nf-btn  { width: 100%; max-width: 280px; justify-content: center; }
+}
+</style>
+</head>
+<body>
+<div class="noise-overlay"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="index.html">⛩ Hanabi Live</a>
+  <div class="nav-links">
+    <a class="nav-link" href="index.html">Home</a>
+    <a class="nav-link" href="browse.html">Browse</a>
+    <a class="nav-link" href="schedule.html">Schedule</a>
+    <a class="nav-link" href="profile.html">Profile</a>
+  </div>
+  <div class="nav-auth">
+    <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back</a>
+  </div>
+  <!-- Hamburger (mobile only) -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-mobile-drawer" id="navMobileDrawer">
+  <a class="nav-link" href="index.html">🏠 Home</a>
+  <a class="nav-link" href="browse.html">🔍 Browse</a>
+  <a class="nav-link" href="schedule.html">📅 Schedule</a>
+  <a class="nav-link" href="profile.html">👤 Profile</a>
+  <div class="nav-mobile-auth" id="navMobileAuth">
+    <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()">Log In</button>
+    <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()">Sign Up</button>
+  </div>
+</div>
+
+<!-- 404 PAGE -->
+<div class="not-found-page">
+  <!-- Background orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Floating particles -->
+  <div class="nf-particles" id="nfParticles"></div>
+
+  <!-- Main content -->
+  <div class="nf-content">
+    <span class="nf-shrine">⛩</span>
+
+    <div class="nf-eyebrow">Error</div>
+
+    <div class="nf-code" aria-label="404">404</div>
+
+    <h1 class="nf-title">This Anime Has Gone Missing</h1>
+
+    <div class="nf-status-strip">
+      <span class="nf-status-dot"></span>
+      HTTP 404 — Page Not Found
+    </div>
+
+    <p class="nf-desc">
+      The page you were looking for doesn't exist, was removed, or took a different path — 
+      kind of like Subaru getting reset in another world. Let's get you back to the story.
+    </p>
+
+    <div class="nf-btns">
+      <a href="index.html" class="nf-btn nf-btn-primary">🏠 Go Home</a>
+      <a href="browse.html" class="nf-btn nf-btn-teal">▶ Browse Anime</a>
+      <a href="schedule.html" class="nf-btn nf-btn-secondary">📅 Schedule</a>
+    </div>
+
+    <div class="nf-divider"></div>
+
+    <div class="nf-links">
+      <span class="nf-link-label">Quick Links</span>
+      <a class="nf-link" href="browse.html">Trending Anime</a>
+      <a class="nf-link" href="browse.html">New Releases</a>
+      <a class="nf-link" href="profile.html">My Profile</a>
+      <a class="nf-link" href="sitemap.html">Sitemap</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:24px;border-top:1px solid var(--border);position:relative;z-index:2;">
+  <span style="font-size:12px;color:var(--text-muted);">© 2026 Hanabi Live. Made with ❤ by anime fans, for anime fans.</span>
+  <span style="margin:0 12px;color:var(--border);">|</span>
+  <a href="pp.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;">Privacy Policy</a>
+  <span style="margin:0 8px;color:var(--border);">·</span>
+  <a href="tos.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;">Terms of Service</a>
+</div>
+
+<script>
+
+// ─── MOBILE NAV TOGGLE ───
+function toggleMobileNav() {
+  const btn    = document.getElementById('navHamburger');
+  const drawer = document.getElementById('navMobileDrawer');
+  const isOpen = drawer.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  drawer.classList.toggle('open', !isOpen);
+  // Prevent body scroll when drawer open
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+window.toggleMobileNav = toggleMobileNav;
+
+// Close drawer on resize to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.getElementById('navHamburger')?.classList.remove('open');
+    document.getElementById('navMobileDrawer')?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close drawer when clicking outside
+document.addEventListener('click', (e) => {
+  const drawer = document.getElementById('navMobileDrawer');
+  const btn    = document.getElementById('navHamburger');
+  if (drawer?.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
+    toggleMobileNav();
+  }
+});
+
+// Sync mobile auth area with auth state
+document.addEventListener('authStateChanged', (e) => {
+  const user = e.detail;
+  const mobileAuth = document.getElementById('navMobileAuth');
+  if (!mobileAuth) return;
+  if (user) {
+    const profile = window.getProfileCache?.() || {};
+    const name = profile.name || user.displayName || 'User';
+    mobileAuth.innerHTML = `
+      <a class="btn btn-outline" href="profile.html" style="text-decoration:none;flex:1;text-align:center;">👤 ${name}</a>
+      <button class="btn btn-primary" onclick="doSignOut()" style="flex:1;">Sign Out</button>`;
+  } else {
+    mobileAuth.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()" style="flex:1;">Log In</button>
+      <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()" style="flex:1;">Sign Up</button>`;
+  }
+});
+// Floating particles
+(function() {
+  const c = document.getElementById('nfParticles');
+  const colors = ['#e63946','#9b59ff','#00d4b8','#f4c430'];
+  for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    const s = Math.random() * 3 + 1.5;
+    p.style.cssText = `
+      position:absolute; border-radius:50%;
+      width:${s}px; height:${s}px;
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*4)]};
+      animation-name:floatParticle;
+      animation-duration:${Math.random()*10+8}s;
+      animation-delay:${Math.random()*10}s;
+      animation-timing-function:linear;
+      animation-iteration-count:infinite;
+      opacity:0.35;
+    `;
+    c.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>

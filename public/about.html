@@ -404,7 +404,23 @@ body { padding-top: 70px; }
   <div class="nav-auth">
     <a href="index.html" class="btn btn-outline" style="text-decoration:none;">← Back</a>
   </div>
+  <!-- Hamburger (mobile only) -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-mobile-drawer" id="navMobileDrawer">
+  <a class="nav-link" href="index.html">🏠 Home</a>
+  <a class="nav-link" href="browse.html">🔍 Browse</a>
+  <a class="nav-link" href="schedule.html">📅 Schedule</a>
+  <a class="nav-link" href="profile.html">👤 Profile</a>
+  <div class="nav-mobile-auth" id="navMobileAuth">
+    <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()">Log In</button>
+    <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()">Sign Up</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="about-hero">
@@ -609,6 +625,54 @@ body { padding-top: 70px; }
 </div>
 
 <script>
+  
+// ─── MOBILE NAV TOGGLE ───
+function toggleMobileNav() {
+  const btn    = document.getElementById('navHamburger');
+  const drawer = document.getElementById('navMobileDrawer');
+  const isOpen = drawer.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  drawer.classList.toggle('open', !isOpen);
+  // Prevent body scroll when drawer open
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+window.toggleMobileNav = toggleMobileNav;
+
+// Close drawer on resize to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.getElementById('navHamburger')?.classList.remove('open');
+    document.getElementById('navMobileDrawer')?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close drawer when clicking outside
+document.addEventListener('click', (e) => {
+  const drawer = document.getElementById('navMobileDrawer');
+  const btn    = document.getElementById('navHamburger');
+  if (drawer?.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
+    toggleMobileNav();
+  }
+});
+
+// Sync mobile auth area with auth state
+document.addEventListener('authStateChanged', (e) => {
+  const user = e.detail;
+  const mobileAuth = document.getElementById('navMobileAuth');
+  if (!mobileAuth) return;
+  if (user) {
+    const profile = window.getProfileCache?.() || {};
+    const name = profile.name || user.displayName || 'User';
+    mobileAuth.innerHTML = `
+      <a class="btn btn-outline" href="profile.html" style="text-decoration:none;flex:1;text-align:center;">👤 ${name}</a>
+      <button class="btn btn-primary" onclick="doSignOut()" style="flex:1;">Sign Out</button>`;
+  } else {
+    mobileAuth.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()" style="flex:1;">Log In</button>
+      <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()" style="flex:1;">Sign Up</button>`;
+  }
+});
 // Subtle particles
 (function() {
   const c = document.getElementById('aboutParticles');

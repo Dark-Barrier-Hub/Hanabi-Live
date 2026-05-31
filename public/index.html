@@ -49,10 +49,7 @@
     url('data/poster/bg.webp') center/cover no-repeat;
 }
 .hero-particles { position:absolute; inset:0; overflow:hidden; }
-.particle {
-  position:absolute; border-radius:50%;
-  animation:floatParticle linear infinite;
-}
+.particle { position:absolute; border-radius:50%; animation:floatParticle linear infinite; }
 .hero-content { position:relative; z-index:5; max-width:700px; padding:0 60px; }
 .hero-badge {
   display:inline-flex; align-items:center; gap:8px;
@@ -89,54 +86,28 @@
 .btn-hero-primary:hover { transform:translateY(-3px); box-shadow:0 0 40px rgba(230,57,70,0.8); }
 .btn-hero-secondary { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:var(--text-primary); backdrop-filter:blur(10px); }
 .btn-hero-secondary:hover { background:rgba(255,255,255,0.1); transform:translateY(-3px); }
-
-/* App name in hero — visually integrated but crawlable */
 .hero-appname {
-  display:block;
-  font-family:'Cinzel Decorative',serif;
-  font-size:clamp(14px,1.6vw,22px);
-  font-weight:700;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:var(--accent-teal);
-  margin-bottom:6px;
-  opacity:0.85;
-  filter:drop-shadow(0 0 8px rgba(0,212,184,0.4));
+  display:block; font-family:'Cinzel Decorative',serif;
+  font-size:clamp(14px,1.6vw,22px); font-weight:700; letter-spacing:4px;
+  text-transform:uppercase; color:var(--accent-teal); margin-bottom:6px;
+  opacity:0.85; filter:drop-shadow(0 0 8px rgba(0,212,184,0.4));
 }
-
-/* App purpose / about strip */
 .about-strip {
-  padding:48px 60px;
-  position:relative; z-index:2;
-  background:rgba(9,11,26,0.6);
-  border-bottom:1px solid var(--border);
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:32px;
+  padding:48px 60px; position:relative; z-index:2;
+  background:rgba(9,11,26,0.6); border-bottom:1px solid var(--border);
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:32px;
 }
-.about-strip-item {
-  display:flex; align-items:flex-start; gap:16px;
-}
+.about-strip-item { display:flex; align-items:flex-start; gap:16px; }
 .about-strip-icon {
   width:48px; height:48px; border-radius:10px; flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  font-size:22px;
+  display:flex; align-items:center; justify-content:center; font-size:22px;
 }
 .about-strip-icon.red    { background:rgba(230,57,70,0.12);  border:1px solid rgba(230,57,70,0.3); }
 .about-strip-icon.teal   { background:rgba(0,212,184,0.1);   border:1px solid rgba(0,212,184,0.25); }
 .about-strip-icon.purple { background:rgba(155,89,255,0.12); border:1px solid rgba(155,89,255,0.3); }
 .about-strip-icon.gold   { background:rgba(244,196,48,0.1);  border:1px solid rgba(244,196,48,0.25); }
-.about-strip-label {
-  font-size:13px; font-weight:700; color:var(--text-primary);
-  letter-spacing:0.5px; margin-bottom:4px;
-}
-.about-strip-desc {
-  font-size:13px; color:var(--text-muted); line-height:1.6;
-}
-@media(max-width:768px){
-  .about-strip { padding:32px 20px; grid-template-columns:1fr 1fr; gap:20px; }
-}
-
+.about-strip-label { font-size:13px; font-weight:700; color:var(--text-primary); letter-spacing:0.5px; margin-bottom:4px; }
+.about-strip-desc  { font-size:13px; color:var(--text-muted); line-height:1.6; }
 .hero-stats {
   position:absolute; right:60px; bottom:80px;
   display:flex; flex-direction:column; gap:20px;
@@ -150,7 +121,7 @@
   display:block; line-height:1;
 }
 .stat-label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); }
-@media(max-width:768px){ .hero-content{padding:0 24px;} .hero-stats{display:none;} }
+
 </style>
 </head>
 <body>
@@ -176,7 +147,23 @@
     <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
     <button class="btn btn-primary" onclick="openModal('register')">Sign Up</button>
   </div>
+  <!-- Hamburger (mobile only) -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-mobile-drawer" id="navMobileDrawer">
+  <a class="nav-link active" href="index.html">🏠 Home</a>
+  <a class="nav-link" href="browse.html">🔍 Browse</a>
+  <a class="nav-link" href="schedule.html">📅 Schedule</a>
+  <a class="nav-link" href="profile.html">👤 Profile</a>
+  <div class="nav-mobile-auth" id="navMobileAuth">
+    <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()">Log In</button>
+    <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()">Sign Up</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -267,6 +254,20 @@
   </div>
   <div class="anime-grid" id="popularGrid"></div>
 </section>
+
+<!-- AD -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2504366420154184"
+     crossorigin="anonymous"></script>
+<!-- index-ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-2504366420154184"
+     data-ad-slot="6467733824"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <!-- PRIVACY POLICY NOTICE (required for Google OAuth verification) -->
 <div style="position:relative;z-index:2;background:rgba(155,89,255,0.06);border-top:1px solid rgba(155,89,255,0.2);border-bottom:1px solid rgba(155,89,255,0.2);padding:18px 60px;display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;text-align:center;">
@@ -409,6 +410,54 @@
 <script src="assets/js/core.js"></script>
 <script>
 mountAuthModal();
+
+// ─── MOBILE NAV TOGGLE ───
+function toggleMobileNav() {
+  const btn    = document.getElementById('navHamburger');
+  const drawer = document.getElementById('navMobileDrawer');
+  const isOpen = drawer.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  drawer.classList.toggle('open', !isOpen);
+  // Prevent body scroll when drawer open
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+window.toggleMobileNav = toggleMobileNav;
+
+// Close drawer on resize to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.getElementById('navHamburger')?.classList.remove('open');
+    document.getElementById('navMobileDrawer')?.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close drawer when clicking outside
+document.addEventListener('click', (e) => {
+  const drawer = document.getElementById('navMobileDrawer');
+  const btn    = document.getElementById('navHamburger');
+  if (drawer?.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
+    toggleMobileNav();
+  }
+});
+
+// Sync mobile auth area with auth state
+document.addEventListener('authStateChanged', (e) => {
+  const user = e.detail;
+  const mobileAuth = document.getElementById('navMobileAuth');
+  if (!mobileAuth) return;
+  if (user) {
+    const profile = window.getProfileCache?.() || {};
+    const name = profile.name || user.displayName || 'User';
+    mobileAuth.innerHTML = `
+      <a class="btn btn-outline" href="profile.html" style="text-decoration:none;flex:1;text-align:center;">👤 ${name}</a>
+      <button class="btn btn-primary" onclick="doSignOut()" style="flex:1;">Sign Out</button>`;
+  } else {
+    mobileAuth.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('login');toggleMobileNav()" style="flex:1;">Log In</button>
+      <button class="btn btn-primary" onclick="openModal('register');toggleMobileNav()" style="flex:1;">Sign Up</button>`;
+  }
+});
 
 // ─── PARTICLES ───
 function createParticles() {
