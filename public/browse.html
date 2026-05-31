@@ -99,6 +99,24 @@ body { padding-top:70px; }
 .card-genres .card-genre {
   white-space: nowrap;
 }
+
+/* Allow filter chips to wrap on smaller screens */
+.search-bar-wrap {
+  flex-wrap: wrap !important;
+}
+.filter-chips {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding: 8px 60px 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+@media(max-width: 768px) {
+  .filter-chips {
+    padding: 8px 20px 12px !important;
+  }
+}
 </style>
 </head>
 <body>

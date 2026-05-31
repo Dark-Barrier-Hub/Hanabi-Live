@@ -508,7 +508,8 @@ nav {
 .toast-icon { font-size:20px; }
 
 /* ─── USER DROPDOWN ─── */
-.user-menu { position:relative; }
+.user-menu { position:relative;
+}
 .user-btn {
   display:flex; align-items:center; gap:10px;
   background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:6px;
@@ -524,12 +525,29 @@ nav {
   font-size:12px; font-weight:700;
 }
 .user-dropdown {
-  position:absolute; top:calc(100% + 8px); right:0;
-  background:var(--bg-card); border:1px solid var(--border); border-radius:8px;
-  min-width:180px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,0.5);
-  opacity:0; transform:translateY(-10px); pointer-events:none; transition:all 0.3s; z-index:100;
+  position: absolute; top: 100%; right: 0;
+  /* ADD these two lines: */
+  margin-top: 0;
+  border-top: 8px solid transparent;  /* creates hoverable gap without visual gap */
+  background-clip: padding-box;
+  
+  /* keep everything else as-is */
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  min-width: 180px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  opacity: 0; transform: translateY(-10px); pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  transition-delay: 0.25s;
+  z-index: 100;
 }
-.user-menu:hover .user-dropdown { opacity:1; transform:translateY(0); pointer-events:all; }
+
+.user-menu:hover .user-dropdown {
+  opacity:1; transform:translateY(0); pointer-events:all;
+  transition-delay: 0s;              /* ← no delay when showing */
+}
 .dropdown-item {
   display:flex; align-items:center; gap:10px; padding:12px 16px; cursor:pointer;
   transition:background 0.2s; border:none; background:none; width:100%;
