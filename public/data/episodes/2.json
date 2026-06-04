@@ -9,7 +9,6 @@
     "description": "Humanity lives inside cities surrounded by enormous walls protecting them from gigantic humanoid Titans that devour humans seemingly without reason.",
     "bgImg": "../data/poster/aot-bg.webp",
     "coverImg": "../data/poster/aot-s1.webp",
-    "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
     "episodes": [
       { "num": 1,  "title": "To You, 2000 Years in the Future",  "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
       { "num": 2,  "title": "That Day: The Fall of Shiganshina", "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },

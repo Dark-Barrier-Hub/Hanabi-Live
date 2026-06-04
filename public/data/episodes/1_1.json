@@ -9,7 +9,6 @@
     "description": "Satoru Mikami is reincarnated as a slime in a fantasy world, gaining unique abilities and forging his own path as ruler of monsters.",
     "bgImg": "../data/poster/tensura-bg.webp",
     "coverImg": "../data/poster/tensura-s1.webp",
-    "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
     "episodes": [
         { "num": 1,  "title": "The Storm Dragon, Veldora",      "duration": "23:43", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
         { "num": 2,  "title": "Meeting the Goblins",            "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78164m/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },

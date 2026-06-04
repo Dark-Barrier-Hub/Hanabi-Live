@@ -562,7 +562,7 @@ function playEpisode(num) {
   loading.style.display = 'flex';
   iframe.style.opacity  = '0';
 
-  const embedSrc = ep.audio?.[currentAudio] || ep.audio?.sub || ep.embed || SHOW_DATA.defaultEmbed;
+  const embedSrc = ep.audio?.[currentAudio] || ep.audio?.sub || ep.embed;
   iframe.src = embedSrc;
 
   document.title = `${SHOW_DATA.animeTitle} Ep.${ep.num} — Hanabi Live`;

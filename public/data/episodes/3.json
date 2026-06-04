@@ -9,7 +9,6 @@
     "description": "Tanjiro Kamado's life is shattered when demons slaughter his family. He joins the Demon Slayer Corps to find a cure for his demon-turned sister Nezuko.",
     "bgImg": "../data/poster/kimetsuny-bg.webp",
     "coverImg": "../data/poster/kimetsuny-s1.webp",
-    "defaultEmbed": "https://rumble.com/embed/v7814co/?pub=4pdc1w",
     "episodes": [
       { "num": 1,  "title": "Cruelty",                                  "duration": "23:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
       { "num": 2,  "title": "Trainer Sakonji Urokodaki",                "duration": "23:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
