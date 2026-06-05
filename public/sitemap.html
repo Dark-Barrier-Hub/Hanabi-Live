@@ -156,8 +156,58 @@ body { padding-top: 70px; }
   .sitemap-body { padding: 32px 20px; grid-template-columns: 1fr; }
   .sitemap-footer-note { padding: 0 20px 40px; }
 }
+
+/* Ad Zone */
+.ad-zone-wrap {
+  border-top: 1px solid var(--border);
+  padding: 32px 60px 40px;
+  position: relative; z-index: 2;
+}
+.ad-zone-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--text-muted);
+  text-align: center; margin-bottom: 12px; opacity: 0.5;
+}
+.do-not-press-wrap {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding: 24px; background: var(--bg-deep);
+  border: 1px solid rgba(230,57,70,0.2); border-radius: 10px;
+  max-width: 360px; margin: 0 auto;
+}
+.dnp-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(230,57,70,0.6);
+}
+.dnp-btn {
+  padding: 10px 28px; border-radius: 4px;
+  background: linear-gradient(135deg, var(--accent-red), #c0392b);
+  border: none; color: #fff; font-family: 'Stack Sans Headline', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; cursor: pointer;
+  box-shadow: var(--glow-red); transition: transform 0.2s;
+  text-decoration: none; display: inline-block;
+}
+.dnp-btn:hover { transform: translateY(-2px); }
+.dnp-msg {
+  font-size: 13px; font-weight: 600;
+  color: var(--accent-gold); text-align: center;
+  letter-spacing: 0.5px; line-height: 1.5;
+  display: none;
+}
+.dnp-msg.show { display: block; animation: fadeMsg 0.4s ease; }
+@keyframes fadeMsg {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 768px) {
+  .ad-zone-wrap { padding: 24px 16px 32px; }
+}
 </style>
 </head>
+
+<!-- AD -->
+<script src="https://quge5.com/88/tag.min.js" data-zone="246019" async data-cfasync="false"></script>
+
 <body>
 <div class="noise-overlay"></div>
 
@@ -339,6 +389,16 @@ body { padding-top: 70px; }
 
 </div>
 
+<div class="ad-zone-wrap">
+  <div class="do-not-press-wrap">
+    <div class="dnp-label">⚠ Do not press this button</div>
+    <a class="dnp-btn" href="https://omg10.com/4/11098873" target="_blank" rel="noopener" onclick="showMsg()">
+      Do Not Press
+    </a>
+    <div class="dnp-msg" id="dnpMsg">😤 Told you. Watch the Anime<br>and not come here.</div>
+  </div>
+</div>
+
 <!-- Footer note -->
 <div class="sitemap-footer-note">
   <div class="sitemap-xml-box">
@@ -351,6 +411,11 @@ body { padding-top: 70px; }
 
 </body>
 <script>
+// Ad zone
+
+function showMsg() {
+  document.getElementById('dnpMsg').classList.add('show');
+}
   
 // ─── MOBILE NAV TOGGLE ───
 function toggleMobileNav() {
