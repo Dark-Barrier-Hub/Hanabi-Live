@@ -10,17 +10,17 @@
     "bgImg": "../data/poster/tensura-bg.webp",
     "coverImg": "../data/poster/tensura-s2-1.webp",
     "episodes": [
-        { "num": 1,  "title": "Rimuru's Busy Life",                 "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 2,  "title": "Trade with the Animal Kingdom",      "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78164m/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 3,  "title": "Paradise, Once More",                "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v781728/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 4,  "title": "The Scheming Kingdom of Falmuth",    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 5,  "title": "Prelude to the Disaster",            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 6,  "title": "The Beauty Makes Her Move",          "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 7,  "title": "Despair",                            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 8,  "title": "Hope",                               "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 9,  "title": "Putting Everything on the Line",     "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 10, "title": "Megiddo",                            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 11, "title": "Birth of a Demon Lord",              "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 12, "title": "The One Unleashed",                  "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } }
+        { "num": 1,  "title": "Rimuru's Busy Life",                 "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78pfg8/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 2,  "title": "Trade with the Animal Kingdom",      "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78pfoe/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 3,  "title": "Paradise, Once More",                "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78pfwo/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 4,  "title": "The Scheming Kingdom of Falmuth",    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pg10/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 5,  "title": "Prelude to the Disaster",            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pg6q/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 6,  "title": "The Beauty Makes Her Move",          "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pga0/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 7,  "title": "Despair",                            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pgdm/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 8,  "title": "Hope",                               "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pgq2/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 9,  "title": "Putting Everything on the Line",     "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78phke/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 10, "title": "Megiddo",                            "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pl82/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 11, "title": "Birth of a Demon Lord",              "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pm1m/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 12, "title": "The One Unleashed",                  "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pm8s/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } }
     ]
 }
