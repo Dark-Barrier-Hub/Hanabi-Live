@@ -280,8 +280,7 @@ body { padding-top: 70px; }
           <span style="font-size:13px;color:var(--text-muted);letter-spacing:1px;">Loading episode…</span>
         </div>
         <iframe id="playerIframe" src="" frameborder="0" allowfullscreen scrolling="no"
-                allow="autoplay" style="opacity:0;transition:opacity 0.4s;"
-                id="playerIframe"></iframe>
+                allow="autoplay" style="opacity:0;transition:opacity 0.4s;"></iframe>
       </div>
 
       <div class="video-header">
@@ -412,7 +411,7 @@ let currentAudio = 'sub';
 /* ═══════════════ INIT ═══════════════ */
 async function init() {
   const params = new URLSearchParams(location.search);
-  currentAnimeId = String(params.get('id') || '1');
+  currentAnimeId = String(params.get('id') || '1_1');
   currentEpNum   = parseInt(params.get('ep') || '1', 10);
 
   try {

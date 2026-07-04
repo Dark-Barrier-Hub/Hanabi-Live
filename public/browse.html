@@ -303,8 +303,10 @@ function renderGrid() {
   if (currentFilter !== 'All') list = list.filter(a => (Array.isArray(a.genre) ? a.genre : [a.genre]).includes(currentFilter));
   if (q) list = list.filter(a => a.title.toLowerCase().includes(q) || (Array.isArray(a.genre) ? a.genre : [a.genre]).join(' ').toLowerCase().includes(q) || a.desc.toLowerCase().includes(q));
 
+  const toNum = v => (typeof v === 'number' ? v : -Infinity); // pushes "TBA"/non-numeric years to the bottom
+
   if (currentSort === 'score')  list.sort((a,b) => b.score - a.score);
-  if (currentSort === 'year')   list.sort((a,b) => b.year - a.year);
+  if (currentSort === 'year')   list.sort((a,b) => toNum(b.year) - toNum(a.year));
   if (currentSort === 'ep')     list.sort((a,b) => b.ep - a.ep);
   if (currentSort === 'title')  list.sort((a,b) => a.title.localeCompare(b.title));
 

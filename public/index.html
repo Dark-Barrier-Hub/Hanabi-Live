@@ -153,7 +153,7 @@
   "@type": "WebSite",
   "name": "Hanabi Live",
   "url": "https://hanabilive.qzz.io",
-  "description": "Free anime streaming platform with 1200+ titles in HD.",
+  "description": "Free anime streaming platform with 1200+ titles in HD."
 }
 </script>
 
@@ -294,7 +294,7 @@
   <span style="font-size:13px;color:var(--text-muted);">
     🔒 By using <strong style="color:var(--text-primary);">Hanabi Live</strong>, you agree to our data practices.
   </span>
-  <a href="https://hanabilive.qzz.io/pp.html" style="font-size:13px;font-weight:700;color:var(--accent-purple);text-decoration:none;border:1px solid rgba(155,89,255,0.4);padding:6px 16px;border-radius:20px;transition:all 0.3s;"
+  <a href="pp.html" style="font-size:13px;font-weight:700;color:var(--accent-purple);text-decoration:none;border:1px solid rgba(155,89,255,0.4);padding:6px 16px;border-radius:20px;transition:all 0.3s;"
      onmouseover="this.style.background='rgba(155,89,255,0.15)'" onmouseout="this.style.background='transparent'">
     Privacy Policy
   </a>
@@ -380,7 +380,7 @@
         </div>
         <div style="display:flex;flex-direction:column;gap:12px;">
           <a href="https://hanabilive.qzz.io/about.html"   class="footer-link">ℹ About Us</a>
-          <a href="https://hanabilive.qzz.io/pp.html"      class="footer-link">🔒 Privacy Policy</a>
+          <a href="pp.html"      class="footer-link">🔒 Privacy Policy</a>
           <a href="https://hanabilive.qzz.io/tos.html"     class="footer-link">📜 Terms of Service</a>
           <a href="https://hanabilive.qzz.io/sitemap.html" class="footer-link">🗺 Sitemap</a>
         </div>
@@ -397,7 +397,7 @@
         © 2026 <strong style="color:rgba(232,234,246,0.5);">Hanabi Live</strong>. Made with ❤ by anime fans, for anime fans.
       </span>
       <div style="display:flex;gap:20px;flex-wrap:wrap;">
-        <a href="https://hanabilive.qzz.io/pp.html"      style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
+        <a href="pp.html"      style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
            onmouseover="this.style.color='var(--accent-purple)'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a>
         <a href="https://hanabilive.qzz.io/tos.html"     style="font-size:12px;color:var(--text-muted);text-decoration:none;font-weight:600;transition:color 0.2s;"
            onmouseover="this.style.color='var(--accent-red)'" onmouseout="this.style.color='var(--text-muted)'">Terms of Service</a>
@@ -518,7 +518,7 @@ async function init() {
         <div class="trending-title">${top1.title}</div>
         <div style="font-size:14px;color:var(--text-muted);line-height:1.6;">${top1.desc}</div>
         <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
-          <span class="card-genre">${top1.genre}</span>
+          ${(Array.isArray(top1.genre) ? top1.genre : [top1.genre]).map(g => `<span class="card-genre">${g}</span>`).join('')}
           <span style="font-size:12px;color:var(--accent-gold);">★ ${top1.score}</span>
           <span style="font-size:12px;color:var(--text-muted);">${top1.ep} Episodes</span>
         </div>
