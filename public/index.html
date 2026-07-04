@@ -18,14 +18,18 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
   import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-  const firebaseConfig = {
-    apiKey:"AIzaSyB6FFZb-APx-w1XmGe2GZj3nGMpUGhSNn0",
-    authDomain:"hanabilive-dbh004.firebaseapp.com",
-    projectId:"hanabilive-dbh004",
-    storageBucket:"hanabilive-dbh004.firebasestorage.app",
-    messagingSenderId:"370285575457",
-    appId:"1:370285575457:web:30a958f74c32c2a59c1260"
-  };
+  
+  async function loadFirebaseConfig() {
+    try {
+      const response = await fetch('assets/js/config.json');
+      const data = await response.json();
+      return data.firebase_config;
+    } catch (error) {
+      console.error("Failed to load config.json", error)
+    }
+  }
+
+  const firebaseConfig = await loadFirebaseConfig();
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
@@ -132,14 +136,14 @@
 <meta property="og:site_name"   content="Hanabi Live">
 <meta property="og:title"       content="Hanabi Live — Free Anime Streaming">
 <meta property="og:description" content="Watch 1200+ anime titles for free in HD. No subscription. Attack on Titan, Demon Slayer, One Piece and more.">
-<meta property="og:image"       content="https://hanabilive.qzz.io/data/poster/bg.webp">
+<meta property="og:image"       content="https://hanabilive.qzz.io/data/poster/bg.jpeg">
 <meta property="og:url"         content="https://hanabilive.qzz.io/">
 
 <!-- Twitter Card -->
 <meta name="twitter:card"        content="summary_large_image">
 <meta name="twitter:title"       content="Hanabi Live — Free Anime Streaming">
 <meta name="twitter:description" content="Watch 1200+ anime titles free in HD. No subscription needed.">
-<meta name="twitter:image"       content="https://hanabilive.qzz.io/data/poster/bg.webp">
+<meta name="twitter:image"       content="https://hanabilive.qzz.io/data/poster/bg.jpeg">
 
 </head>
 

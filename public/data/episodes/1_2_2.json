@@ -15,12 +15,12 @@
         { "num": 3,  "title": "Ramiris's Warning",                  "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v78pnlm/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
         { "num": 4,  "title": "The Congress Dances",                "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pnow/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
         { "num": 5,  "title": "The Eve of Battle",                  "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78pofy/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 6,  "title": "The Demon Lords",                    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 7,  "title": "The Signal to Begin the Banquet",    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 8,  "title": "On This Land Where It All Happened", "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 9,  "title": "Adalman,the Index Finger",           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 10, "title": "Demon Lords' Banquet:Walpurgis",     "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 11, "title": "Returning from the Brink",           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
-        { "num": 12, "title": "Octagram",                           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v7814co/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } }
+        { "num": 6,  "title": "The Demon Lords",                    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78scb0/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 7,  "title": "The Signal to Begin the Banquet",    "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78sck0/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 8,  "title": "On This Land Where It All Happened", "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78scm0/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 9,  "title": "Adalman,the Index Finger",           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78scui/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 10, "title": "Demon Lords' Banquet:Walpurgis",     "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78sd02/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 11, "title": "Returning from the Brink",           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78sd44/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } },
+        { "num": 12, "title": "Octagram",                           "duration": "24:00", "audio": {"sub": "https://rumble.com/embed/v78sdaw/?pub=4pdc1w", "dub": "https://rumble.com/embed/DUBLINK/?pub=4pdc1w" } }
     ]
 }
