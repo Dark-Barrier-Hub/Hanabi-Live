@@ -434,6 +434,7 @@ async function init() {
   document.getElementById('watchOuter').style.display  = 'block';
 
   renderDetailHero();
+  renderSeasonTabs();
   loadShow(currentEpNum);
   renderMore();
   subscribeComments(currentAnimeId);
@@ -452,6 +453,39 @@ async function init() {
 function showErrorScreen(msg) {
   document.getElementById('errorScreen').style.display = 'flex';
   if (msg) document.querySelector('#errorScreen .error-sub').textContent = msg;
+}
+
+/* ═══════════════ SEASON TABS ═══════════════ */
+function getSeriesKey(id) {
+  // Groups ids like "1_1", "1_2_1", "1_4_2" under series key "1"
+  return String(id).split('_')[0];
+}
+
+function renderSeasonTabs() {
+  const tabsEl = document.getElementById('seasonTabs');
+  const seriesKey = getSeriesKey(currentAnimeId);
+  const seasons = ANIME_LIST
+    .filter(a => getSeriesKey(a.id) === seriesKey)
+    .sort((a, b) => String(a.id).localeCompare(String(b.id), undefined, { numeric: true }));
+
+  if (seasons.length <= 1) {
+    tabsEl.style.display = 'none';
+    tabsEl.innerHTML = '';
+    return;
+  }
+
+  tabsEl.style.display = 'flex';
+  tabsEl.innerHTML = seasons.map((s, i) => `
+    <div class="season-tab ${String(s.id) === String(currentAnimeId) ? 'active' : ''}"
+         onclick="switchSeason('${s.id}')">
+      ${s.badge === 'tba' ? `${i + 1} (TBA)` : `Part ${i + 1}`}
+    </div>
+  `).join('');
+}
+
+function switchSeason(id) {
+  if (String(id) === String(currentAnimeId)) return;
+  location.href = `watch.html?id=${id}&ep=1`;
 }
 
 /* ═══════════════ DETAIL HERO ═══════════════ */
@@ -519,6 +553,7 @@ function filterEpisodes() {
 /* ═══════════════ PLAY EPISODE ═══════════════ */
 
 function onIframeLoad() {
+  clearTimeout(playerLoadTimeout);
   document.getElementById('playerLoading').style.display = 'none';
   document.getElementById('playerIframe').style.opacity  = '1';
 }
@@ -561,6 +596,9 @@ function selectEp(num) {
   window.scrollTo({ top: document.getElementById('detailHero').offsetTop - 70, behavior: 'smooth' });
 }
 
+let playerLoadTimeout = null;
+const PLAYER_LOADING_HTML = `<div class="spinner"></div><span style="font-size:13px;color:var(--text-muted);letter-spacing:1px;">Loading episode…</span>`;
+
 function playEpisode(num) {
   const ep = episodeData.find(e => e.num === num);
   if (!ep) return;
@@ -569,11 +607,28 @@ function playEpisode(num) {
   const iframe  = document.getElementById('playerIframe');
   const loading = document.getElementById('playerLoading');
 
+  loading.innerHTML     = PLAYER_LOADING_HTML;
   loading.style.display = 'flex';
   iframe.style.opacity  = '0';
 
-  const embedSrc = ep.audio?.[currentAudio] || ep.audio?.sub || ep.embed;
-  iframe.src = embedSrc;
+  clearTimeout(playerLoadTimeout);
+
+  const embedSrc = ep.audio?.[currentAudio];
+  if (!embedSrc) {
+    // Requested audio track doesn't exist — fall back but tell the user.
+    loading.innerHTML = `<span style="font-size:13px;color:var(--text-muted);text-align:center;padding:0 16px;">⚠ ${currentAudio.toUpperCase()} not available for this episode.<br>Falling back to Sub.</span>`;
+    iframe.src = ep.audio?.sub || ep.embed || '';
+  } else {
+    iframe.src = embedSrc;
+  }
+
+  // Iframes for cross-origin embeds don't reliably fire onerror,
+  // so use a timeout to catch embeds that silently never load.
+  playerLoadTimeout = setTimeout(() => {
+    if (iframe.style.opacity === '0') {
+      loading.innerHTML = `<span style="font-size:13px;color:var(--text-muted);text-align:center;padding:0 16px;">⚠ This episode failed to load.<br>Try toggling Sub/Dub or picking another episode.</span>`;
+    }
+  }, 10000);
 
   document.title = `${SHOW_DATA.animeTitle} Ep.${ep.num} — Hanabi Live`;
   document.getElementById('watchTitle').textContent =

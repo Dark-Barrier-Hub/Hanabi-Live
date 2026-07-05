@@ -561,8 +561,10 @@ function renderProfile(user) {
 async function handleAvatarUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
-  if (file.size > 2 * 1024 * 1024) {
-    showToast('Image too large (max 2MB)', '⚠️'); return;
+  // Base64 inflates size by ~33%, and Firestore documents cap at 1 MiB total.
+  // Cap the raw file well below that so the encoded string stays safe.
+  if (file.size > 700 * 1024) {
+    showToast('Image too large (max ~700KB)', '⚠️'); return;
   }
   const avatarEl = document.getElementById('profileAvatar');
   const spinner  = document.createElement('div');
@@ -572,6 +574,12 @@ async function handleAvatarUpload(event) {
 
   try {
     const base64 = await fileToBase64(file);
+    if (base64.length > 900 * 1024) {
+      spinner.remove();
+      showToast('Image too large after encoding. Try a smaller photo.', '⚠️');
+      event.target.value = '';
+      return;
+    }
     await saveProfilePhoto(base64);
     spinner.remove();
     document.getElementById('profileAvatarLetter').style.display = 'none';
@@ -600,19 +608,19 @@ function fileToBase64(file) {
 }
 
 /* ── boot sequence ── */
-let animeReady = false;
-
-loadAnime().then(() => {
-  animeReady = true;
-  if (window.__currentUser) renderProfile(window.__currentUser);
-});
+// Keep a single shared promise instead of a boolean + fixed timeout,
+// so we always wait for the actual load instead of guessing at 80ms.
+const animeReadyPromise = loadAnime();
 
 document.addEventListener('authStateChanged', e => {
   const user = e.detail;
   if (user) {
-    setTimeout(() => {
-      if (animeReady) renderProfile(user);
-    }, 80);
+    animeReadyPromise
+      .then(() => renderProfile(user))
+      .catch(err => {
+        console.error('Failed to load anime data:', err);
+        showToast('Failed to load data. Please refresh.', '❌');
+      });
   } else {
     document.getElementById('profileLoggedIn').style.display  = 'none';
     document.getElementById('profileLoggedOut').style.display = 'flex';
