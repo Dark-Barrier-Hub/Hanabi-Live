@@ -1,0 +1,20 @@
+{
+    "animeId": "17",
+    "animeTitle": "Chainsmoker Cat",
+    "defaultAudio": "sub",
+    "season": "Season 1",
+    "year": 2026,
+    "score": 7.05,
+    "genres": ["Dark Comedy", "Slice of Life"],
+    "description": "Chainsmoker Cat navigates a rowdy workplace of eccentric junior colleagues while sneaking away to secret hideouts for a smoke, all while quietly wrestling with the habit it can't seem to quit.",
+    "bgImg": "../data/poster/yani-bg.webp",
+    "coverImg": "../data/poster/yani.webp",
+    "episodes": [
+        { "num": 1,  "title": "I'm Chainsmoker Cat, Meow",         "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7btsvq/?pub=4pdc1w", "dub": "https://rumble.com/embed/v78nrgq/?pub=4pdc1w" } },
+        { "num": 2,  "title": "Meet My Juniors, Nya",              "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7btt9q/?pub=4pdc1w", "dub": "https://rumble.com/embed/v78nrx4/?pub=4pdc1w" } },
+        { "num": 3,  "title": "I'm More Straight Than Funny, Nya", "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7bttcm/?pub=4pdc1w", "dub": "https://rumble.com/embed/v78nsdc/?pub=4pdc1w" } },
+        { "num": 4,  "title": "Freaks All Around Me, Nya",         "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7bttee/?pub=4pdc1w", "dub": "https://rumble.com/embed/v78nsms/?pub=4pdc1w" } },
+        { "num": 5,  "title": "We're Off to a Secret Place, Nya",  "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7bttgs/?pub=4pdc1w", "dub": "https://rumble.com/embed/v78nsvs/?pub=4pdc1w" } },
+        { "num": 6,  "title": "Nya's Summer Begins and Ends, Nya", "duration": "23:42", "audio": {"sub": "https://rumble.com/embed/v7bttii/?pub=4pdc1w", "dub": "https://rumble.com/embed/v78nt0i/?pub=4pdc1w" } }
+    ]
+}
