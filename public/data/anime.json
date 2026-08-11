@@ -28,5 +28,7 @@
   { "id": "13", "title": "Bleach: TYBW", "genre": ["Action", "Supernatural"], "score": 9.3, "ep": 26, "year": 2022, "badge": "new", "img": "https://i.imgur.com/WJx1gRO.jpg", "desc": "Ichigo battles the powerful Quincy Wandenreich army." },
   { "id": "14", "title": "Tokyo Ghoul", "genre": ["Horror", "Supernatural"], "score": 8.5, "ep": 48, "year": 2014, "badge": "", "img": "https://i.imgur.com/GNW0vr0.jpg", "desc": "Ken Kaneki transforms into a half-ghoul after an encounter." },
   { "id": "15", "title": "Dragon Ball Super", "genre": ["Action", "Adventure"], "score": 8.5, "ep": 131, "year": 2015, "badge": "", "img": "https://i.imgur.com/XNjZ8vL.jpg", "desc": "Goku reaches new heights of power beyond Super Saiyan." },
-  { "id": "16", "title": "Spy x Family", "genre": ["Comedy", "Action"], "score": 9.0, "ep": 37, "year": 2022, "badge": "new", "img": "https://i.imgur.com/LJdkBRz.jpg", "desc": "A spy builds a fake family, not knowing each has secrets." }
+  { "id": "16", "title": "Spy x Family", "genre": ["Comedy", "Action"], "score": 9.0, "ep": 37, "year": 2022, "badge": "new", "img": "https://i.imgur.com/LJdkBRz.jpg", "desc": "A spy builds a fake family, not knowing each has secrets." },
+  { "id": "16", "title": "Chainsmoker Cat", "genre": ["Comedy", "Slice of Life"], "score": 7.05, "ep": 6, "year": 2026, "badge": "new", "img": "../data/poster/yani.webp", "desc": "An cat people deals with its nicotine addiction in the dark comedy slice-of-life series." }
+
 ]
